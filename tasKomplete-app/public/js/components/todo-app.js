@@ -6,7 +6,7 @@ define(['react', 'jquery', './header', './todo-list'],function(React, $, Header,
 		fetchNotifications: function(){
 			$.ajax({
 				type:'GET',
-				url:'/fetchnotifications',
+				url:'/notifications',
 				datatype:'json',
 				success:function(data){
 					console.log(data);
@@ -25,7 +25,7 @@ define(['react', 'jquery', './header', './todo-list'],function(React, $, Header,
 				};
 				$.ajax({
 				    type:'POST',
-				    url:'/createnewtodo',
+				    url:'/todos',
 				    datatype:'json',
 				    data:postData,
 				    success: function(data){

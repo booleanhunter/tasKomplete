@@ -12,8 +12,8 @@ define(
             var app = expressInstance,
                 debug = require('debug')('todoapp:todos-api');
 
-            app.get('/fetchalltodos', function(req, res){
-                debug('request to /fetchalltodos');
+            app.get('/todos', function(req, res){
+                debug('request to GET /todos');
                 todosApiHandlers.fetchAllTodos(req, function(err, responseData){
                     if(err){
                         debug(err);
@@ -23,8 +23,8 @@ define(
                 });
             });
 
-            app.get('/fetchnotifications', function(req, res){
-                debug('request to /fetchnotifications');
+            app.get('/notifications', function(req, res){
+                debug('request to /notifications');
                 todosApiHandlers.fetchNotifications(req, function(err, responseData){
                     if(err){
                         debug(err);
@@ -34,8 +34,8 @@ define(
                 });
             });
 
-            app.post('/createnewtodo', function(req, res){
-                debug('request to /createnewtodo');
+            app.post('/todos', function(req, res){
+                debug('request to POST /todos');
                 todosApiHandlers.createNewTodo(req, function(err, responseData){
                     if(err){
                         debug(err);
@@ -45,8 +45,8 @@ define(
                 });
             });
 
-            app.post('/savetodo', function(req, res){
-                debug('request to /savetodo');
+            app.post('/todo/update', function(req, res){
+                debug('request to /todo/update');
                 todosApiHandlers.saveTodo(req, function(err, responseData){
                     if(err){
                         debug(err);
@@ -56,8 +56,8 @@ define(
                 });         
             });
 
-            app.post('/deletetodo', function(req, res){
-                debug('request to /deletetodo');
+            app.post('/todo/delete', function(req, res){
+                debug('request to /todo/delete');
                 todosApiHandlers.deleteTodo(req, function(err, responseData){
                     if(err){
                         debug(err);
@@ -67,8 +67,8 @@ define(
                 });           
             });
 
-            app.post('/markasfinished', function(req, res){
-                debug('request to /markasfinished');
+            app.post('/todo/mark_complete', function(req, res){
+                debug('request to /todo/mark_complete');
                 todosApiHandlers.markAsFinished(req, function(err, responseData){
                     if(err){
                         debug(err);
@@ -78,8 +78,8 @@ define(
                 });         
             });
 
-            app.post('/markasactive', function(req, res){
-                debug('request to /markasactive');
+            app.post('/todo/mark_incomplete', function(req, res){
+                debug('request to /todo/mark_incomplete');
                 todosApiHandlers.markAsActive(req, function(err, responseData){
                     if(err){
                         debug(err);
@@ -93,6 +93,13 @@ define(
                 debug('request to /assigntodo');
                 todosApiHandlers.assignTodo(req, function(responseData){
                     res.json(responseData);
+                });
+            });
+
+            app.get('/',function(req, res){
+                debug('request to /');
+                todosApiHandlers.renderPage(req, function(argOne, argTwo){
+                    res.render(argOne, argTwo);
                 });
             });
 

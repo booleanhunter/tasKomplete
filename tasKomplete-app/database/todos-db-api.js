@@ -5,7 +5,8 @@ define(
 	],
 	function(exports, configMongo){
 	
-		var mongoDBClient = configMongo.mongoClientDB();
+		var mongoDBClient = configMongo.mongoClientDB(),
+			ObjectID = configMongo.mongoObjectId(),
 			debug = require('debug')('todoapp:todos-db-api');
 
 		exports.registerNewUser = function(req,callback){
@@ -42,7 +43,7 @@ define(
 
 		exports.fetchAllTodos = function(reqObj, callback){
 			mongoDBClient.collection("todoData").find({
-				username: req.user.userName
+				username: reqObj.userName
 			}).sort({date:-1}).toArray(function(err, results){
 				var resultData = {};
 				if(err){

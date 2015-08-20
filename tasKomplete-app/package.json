@@ -11,8 +11,10 @@
     "debug": "^2.2.0",
     "express": "^4.13.3",
     "express-session": "^1.11.3",
+    "jsx-loader": "^0.13.2",
     "method-override": "^2.3.5",
     "mongodb": "^2.0.42",
+    "react": "^0.13.3",
     "requirejs": "^2.1.20",
     "serve-favicon": "^2.3.0",
     "underscore": "^1.8.3"

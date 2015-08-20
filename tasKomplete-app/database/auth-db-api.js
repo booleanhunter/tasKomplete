@@ -5,11 +5,11 @@ define(
 	],
 	function(exports, configMongo){
 		var mongoDBClient = configMongo.mongoClientDB();
-			debug = require('debug')('todoapp:todos-db-api');
+			debug = require('debug')('todoapp:auth-db-api');
 
 		exports.registerNewUser = function(reqObj, callback){
 			mongoDBClient.collection("userData").insert({
-				username: reqObj.username,
+				username: reqObj.userName,
 				password: reqObj.password
 			},function(err, results){
 				var resultData = {};
@@ -30,6 +30,7 @@ define(
 		}
 
 		exports.checkForUser = function(reqObj, callback){
+			debug(reqObj);
 			mongoDBClient.collection("userData").findOne({
 				username: reqObj.userName
 			}, function(err, results){
@@ -41,13 +42,18 @@ define(
 					};
 					callback(resultData);
 				}else{
-					if(results.length > 0){
+					if(results){
+						debug(results);
 						resultData = {
-							status: 'exists'
+							userName: results.username,
+							displayName: null,
+							password: results.password
 						};
 					}else{
 						resultData = {
-							status: 'available'
+							userName: null,
+							displayName: null,
+							password: null
 						};
 					}
 					callback(null, resultData);

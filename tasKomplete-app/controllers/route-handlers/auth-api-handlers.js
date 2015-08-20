@@ -6,25 +6,71 @@ define(
     function (async, authDbApi) {
     	var debug = require('debug')('todoapp:auth-api-handlers');
 
-    	function renderPage(req, responseCallback){
-    		var argOne = 'index',
-                argTwo = {};
-            if(req.session.user){
-                argTwo = {
-                    name: req.session.user.userName
-                };
-                responseCallback(argOne, argTwo);
-            }                
-            else{
-                argTwo = {       
-                    name: null
-                };
-                responseCallback(argOne, argTwo);
-            } 
-    	}
+        function login(req, responseCallback){
+            async.series(
+                [
+                    function(callback){
+                        authDbApi.checkForUser(req.body, callback);
+                    }
+                ],
+                function(err, results){
+                    if(err){
+                        debug(err);
+                    }else{
+                        var resultData = {};
+                        if(results.length > 0){
+                            if(results[0].password === req.body.password){
+                                resultData = {
+                                    userName: results[0].userName,
+                                    displayName: results[0].displayName
+                                }
+                            }else{
+                                resultData = {
+                                    userName: null,
+                                    displayName: null
+                                }
+                            }
+                        }else{
+                            resultData = {
+                                userName: null,
+                                displayName: null
+                            }
+                        }
+                        responseCallback(resultData);
+                    }
+                }
+            )
+        }
 
     	function checkForUser(req, responseCallback){
-    		authDbApi.checkForUser(req.body, responseCallback);
+            async.series(
+                [
+                    function(callback){
+                        authDbApi.checkForUser(req.body, callback);
+                    }
+                ],
+                function(err, results){
+                    if(err){
+                        debug(err);
+                    }else{
+                        var resultData = {};
+                        if(results.length > 0){
+                            resultData = {
+                                userName: results[0].userName,
+                                displayName: results[0].displayName
+                            }
+                            
+                        }else{
+                            resultData = {
+                                userName: null,
+                                displayName: null
+                            }
+                        }
+                        responseCallback(resultData);
+                    }
+                }
+            )
+    		
     	}
 
     	function registerNewUser(req, responseCallback){
@@ -32,9 +78,9 @@ define(
     	}
 
     	return {
-    		renderPage: renderPage,
-
+            login: login,
+            checkForUser: checkForUser,
+            registerNewUser: registerNewUser
     	}
-
     }
 )    

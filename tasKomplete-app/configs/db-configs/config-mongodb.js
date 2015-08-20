@@ -8,12 +8,12 @@ define(
         'mongodb'
     ], 
     function(mongodb) {
-        var MongoClient, mongoDB, that = this;
+        var MongoClient, mongoDB, ObjectID, that = this;
 
         function configure(callback) {
             that.MongoClient = mongodb.MongoClient,
                 Server = mongodb.Server;
-            var server = 'mongodb://localhost:27017/test';
+            var server = 'mongodb://localhost:27017/todoAppDB';
 
             that.MongoClient.connect(server, function(err, db){
                 if(err){
@@ -24,6 +24,7 @@ define(
                     callback(error);
                 }else{
                     that.mongoDB = db;
+                    that.ObjectID = mongodb.ObjectID;
                     callback(null, 'Connection with mongodb established');
                 }
                 
@@ -34,9 +35,14 @@ define(
             return that.mongoDB;
         }
 
+        function mongoObjectId(){
+            return that.ObjectID;
+        }
+
         return {
             configure: configure,
-            mongoClientDB: mongoClientDB
+            mongoClientDB: mongoClientDB,
+            mongoObjectId: mongoObjectId
         }
     }
 );

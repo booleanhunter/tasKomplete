@@ -2,25 +2,25 @@ webpackJsonp([1],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
+	module.exports = __webpack_require__(2);
 
 
 /***/ },
-/* 1 */
+/* 1 */,
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(4)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React){
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React){
 		
 		console.log('Loaded the Home Page');
-		var usernameHeader = document.getElementById('usernameHeader').getAttribute('data-request');
-		if(usernameHeader === ''){
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = function(HomePage){
-				React.render(React.createElement(HomePage, null), document.getElementById('componentContainer'));
-			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-			
-		}else{
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = function(TodoApp){
+		var usernameHeader = document.getElementById('usernameHeader').getAttribute('data-user-name');
+		if(usernameHeader){
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = function(TodoApp){
 				React.render(React.createElement(TodoApp, {username: usernameHeader}), document.getElementById('componentContainer'));
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));		
+		}else{
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = function(HomePage){
+				React.render(React.createElement(HomePage, null), document.getElementById('componentContainer'));
 			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));		
 		}
 		//console.log($('#usernameHeader'));
@@ -30,153 +30,12 @@ webpackJsonp([1],[
 	//webpack -p (for production)
 
 /***/ },
-/* 2 */,
 /* 3 */,
 /* 4 */,
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(4),__webpack_require__(2),__webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$,Header){
-		var HomePage = React.createClass({displayName: "HomePage",
-			signup:{
-				usernameStatus:'false'
-			},
-			verifyLogin:function(){
-				console.log('Login clicked');
-				var username = document.getElementById('loginNameInput').value,
-					password = document.getElementById('loginPwInput').value,
-					postData = {
-						username: username,
-						password: password 
-					};
-				//this code needs to be changed as the authentication technique is not secure.
-				$.ajax({
-				    type:'POST',
-				    url:'/authenticate',
-				    data:postData,
-				    datatype:'json',
-				    success: function(data){
-				    	if(data.status === 'authenticated'){
-				    		window.location.replace('/');
-				    	}else if(data.status === 'authentication failure'){
-				    		document.getElementById('loginErrMsg').innerHTML = "The username does not exist!"
-				    	}else if(data.status === 'password failure'){
-				    		document.getElementById('loginErrMsg').innerHTML = "It looks like you entered a wrong password. Please try again.";
-				    	}                
-				    }.bind(this),
-				    error: function(httpRequest,status,error){
-				    	window.location.replace('/');
-				    }
-				});
-			},
-			checkForUsername:function(){
-				var username = document.getElementById('signupNameInput');
-				if(username.value !== ''){
-					var postData = {
-						username:username.value
-					};
-					$.ajax({
-					    type:'POST',
-					    url:'/checkforuser',
-					    data:postData,
-					    datatype:'json',
-					    success: function(data){
-					  		if(data.status === 'exists'){
-					  			document.getElementById('signupNameMsg').innerHTML = 'Username not available';
-					  			this.signup.usernameStatus = 'false';
-
-					  		}else if(data.status === 'available'){
-					  			document.getElementById('signupNameMsg').innerHTML = 'Username available';
-					  			this.signup.usernameStatus = 'ok';
-					  		}
-					    }.bind(this),
-					    error: function(httpRequest,status,error){
-					    	window.location.replace('/');
-					    }
-					});
-				}else{
-					this.signup.usernameStatus = 'false';
-				}
-			},
-			signup:function(){
-				var userName = document.getElementById('signupNameInput').value,
-					pwOne = document.getElementById('signupPwInputOne').value,
-					pwTwo = document.getElementById('signupPwInputTwo').value,
-					that = this;
-				if(pwOne !== pwTwo){
-					document.getElementById('signupPwMsg').innerHTML = 'Passwords do not match';
-				}else if(that.signup.usernameStatus === 'ok' && pwOne !== ''){
-					var postData = {
-						username: userName,
-						password: pwOne 
-					};
-					$.ajax({
-					    type:'POST',
-					    url:'/signup',
-					    data:postData,
-					    datatype:'json',
-					    success: function(data){
-					    	window.location.replace('/');             
-					    }.bind(this),
-					    error: function(httpRequest,status,error){
-					    	window.location.replace('/');
-					    }
-					});
-				}else{
-					console.log('username exists');
-				}
-			},
-		  	render:function(){
-		  		var that = this;
-			    return (
-			    	React.createElement("div", {id: "homePage"}, 
-			    		React.createElement(Header, null), 
-
-			    		React.createElement("div", {id: "main", className: "section group"}, 
-
-				     		React.createElement("div", {id: "loginSection", className: "column loginSection"}, 
-				     			React.createElement("h3", {id: "loginHeader"}, "Login"), 
-					    		React.createElement("p", {className: "inputClassOne"}, 
-					     			React.createElement("input", {type: "text", id: "loginNameInput", placeholder: "User-name"})
-					     		), 
-					     		React.createElement("p", {className: "inputClassOne"}, 
-					     			React.createElement("input", {type: "password", id: "loginPwInput", placeholder: "Password"})
-					     		), 
-					     		React.createElement("div", {onClick: that.verifyLogin, className: "buttonClassOne", id: "loginButton"}, "Login"), 		
-					     		React.createElement("div", {id: "loginErrMsg"})
-					     	), 
-
-				     		React.createElement("div", {id: "signupSection", className: "column signupSection"}, 
-				     			React.createElement("h3", {id: "signupHeader"}, "Are you a new user? Sign Up!"), 
-				     			React.createElement("p", {className: "inputClassOne"}, 
-				     				React.createElement("input", {type: "text", id: "signupNameInput", placeholder: "Choose a username", onBlur: that.checkForUsername}), 
-				     				React.createElement("div", {id: "signupNameMsg"})
-				     			), 
-				     			React.createElement("p", {className: "inputClassOne"}, 
-				     				React.createElement("input", {type: "password", id: "signupPwInputOne", placeholder: "Choose a password"}), 
-				     				React.createElement("br", null), React.createElement("br", null), 
-				     				React.createElement("input", {type: "password", id: "signupPwInputTwo", placeholder: "Re-enter your password"}), 
-				   					React.createElement("div", {id: "signupPwMsg"})
-				     			), 
-				     			React.createElement("div", {onClick: that.signup, className: "buttonClassOne", id: "signupButton"}, "Sign Up!")	
-				     		), 
-
-				     		React.createElement("div", {id: "bgImg"}), 
-				     		React.createElement("div", {className: "overlay"})
-				     	)	
-	 		    	)
-			    );
-		  	}
-		});
-		return HomePage;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
-
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(4), __webpack_require__(2), __webpack_require__(7), __webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React, $, Header, TodoList){
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(3), __webpack_require__(7), __webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React, $, Header, TodoList){
 		var TodoApp = React.createClass({displayName: "TodoApp",
 			componentDidMount: function(){
 				this.fetchNotifications();	
@@ -184,7 +43,7 @@ webpackJsonp([1],[
 			fetchNotifications: function(){
 				$.ajax({
 					type:'GET',
-					url:'/fetchnotifications',
+					url:'/notifications',
 					datatype:'json',
 					success:function(data){
 						console.log(data);
@@ -203,7 +62,7 @@ webpackJsonp([1],[
 					};
 					$.ajax({
 					    type:'POST',
-					    url:'/createnewtodo',
+					    url:'/todos',
 					    datatype:'json',
 					    data:postData,
 					    success: function(data){
@@ -319,10 +178,149 @@ webpackJsonp([1],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));		
 
 /***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1),__webpack_require__(3),__webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$,Header){
+		var HomePage = React.createClass({displayName: "HomePage",
+			signup:{
+				usernameStatus:'false'
+			},
+			verifyLogin:function(){
+				console.log('Login clicked');
+				var userName = document.getElementById('loginNameInput').value,
+					password = document.getElementById('loginPwInput').value,
+					postData = {
+						userName: userName,
+						password: password 
+					};
+				//this code needs to be changed as the authentication technique is not secure.
+				$.ajax({
+				    type: 'POST',
+				    url: '/login',
+				    data: postData,
+				    datatype:'json',
+				    success: function(data){
+				    	if(data.status === 'loggedIn'){
+				    		window.location.replace('/');
+				    	}else if(data.status === 'authentication failure'){
+				    		document.getElementById('loginErrMsg').innerHTML = "Looks like you entered wrong credentials. Please try again"
+				    	}               
+				    }.bind(this),
+				    error: function(httpRequest,status,error){
+				    	console.log('/');
+				    	//window.location.replace('/');
+				    }
+				});
+			},
+			checkForUsername:function(){
+				var username = document.getElementById('signupNameInput');
+				if(username.value !== ''){
+					var postData = {
+						username:username.value
+					};
+					$.ajax({
+					    type:'POST',
+					    url:'/signup/username/verify',
+					    data:postData,
+					    datatype:'json',
+					    success: function(data){
+					  		if(data.status === 'unavailable'){
+					  			document.getElementById('signupNameMsg').innerHTML = 'Username not available';
+					  			this.signup.usernameStatus = 'false';
+
+					  		}else if(data.status === 'available'){
+					  			document.getElementById('signupNameMsg').innerHTML = 'Username available';
+					  			this.signup.usernameStatus = 'ok';
+					  		}
+					    }.bind(this),
+					    error: function(httpRequest,status,error){
+					    	window.location.replace('/');
+					    }
+					});
+				}else{
+					this.signup.usernameStatus = 'false';
+				}
+			},
+			signup:function(){
+				var userName = document.getElementById('signupNameInput').value,
+					pwOne = document.getElementById('signupPwInputOne').value,
+					pwTwo = document.getElementById('signupPwInputTwo').value,
+					that = this;
+				if(pwOne !== pwTwo){
+					document.getElementById('signupPwMsg').innerHTML = 'Passwords do not match';
+				}else if(that.signup.usernameStatus === 'ok' && pwOne !== ''){
+					var postData = {
+						username: userName,
+						password: pwOne 
+					};
+					$.ajax({
+					    type:'POST',
+					    url:'/signup',
+					    data:postData,
+					    datatype:'json',
+					    success: function(data){
+					    	window.location.replace('/');             
+					    }.bind(this),
+					    error: function(httpRequest,status,error){
+					    	window.location.replace('/');
+					    }
+					});
+				}else{
+					console.log('username exists');
+				}
+			},
+		  	render:function(){
+		  		var that = this;
+			    return (
+			    	React.createElement("div", {id: "homePage"}, 
+			    		React.createElement(Header, null), 
+
+			    		React.createElement("div", {id: "main", className: "section group"}, 
+
+				     		React.createElement("div", {id: "loginSection", className: "column loginSection"}, 
+				     			React.createElement("h3", {id: "loginHeader"}, "Login"), 
+					    		React.createElement("p", {className: "inputClassOne"}, 
+					     			React.createElement("input", {type: "text", id: "loginNameInput", placeholder: "User-name"})
+					     		), 
+					     		React.createElement("p", {className: "inputClassOne"}, 
+					     			React.createElement("input", {type: "password", id: "loginPwInput", placeholder: "Password"})
+					     		), 
+					     		React.createElement("div", {onClick: that.verifyLogin, className: "buttonClassOne", id: "loginButton"}, "Login"), 		
+					     		React.createElement("div", {id: "loginErrMsg"})
+					     	), 
+
+				     		React.createElement("div", {id: "signupSection", className: "column signupSection"}, 
+				     			React.createElement("h3", {id: "signupHeader"}, "Are you a new user? Sign Up!"), 
+				     			React.createElement("p", {className: "inputClassOne"}, 
+				     				React.createElement("input", {type: "text", id: "signupNameInput", placeholder: "Choose a username", onBlur: that.checkForUsername}), 
+				     				React.createElement("div", {id: "signupNameMsg"})
+				     			), 
+				     			React.createElement("p", {className: "inputClassOne"}, 
+				     				React.createElement("input", {type: "password", id: "signupPwInputOne", placeholder: "Choose a password"}), 
+				     				React.createElement("br", null), React.createElement("br", null), 
+				     				React.createElement("input", {type: "password", id: "signupPwInputTwo", placeholder: "Re-enter your password"}), 
+				   					React.createElement("div", {id: "signupPwMsg"})
+				     			), 
+				     			React.createElement("div", {onClick: that.signup, className: "buttonClassOne", id: "signupButton"}, "Sign Up!")	
+				     		), 
+
+				     		React.createElement("div", {id: "bgImg"}), 
+				     		React.createElement("div", {className: "overlay"})
+				     	)	
+	 		    	)
+			    );
+		  	}
+		});
+		return HomePage;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+
+
+/***/ },
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(4),__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$){
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1),__webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$){
 		var Header = React.createClass({displayName: "Header",
 			render: function(){
 				return (
@@ -340,7 +338,7 @@ webpackJsonp([1],[
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(4),__webpack_require__(2),__webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$,SingleTodo){ 
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1),__webpack_require__(3),__webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$,SingleTodo){ 
 		var TodoList = React.createClass({displayName: "TodoList",
 			getInitialState:function(){
 				return {
@@ -358,7 +356,7 @@ webpackJsonp([1],[
 			fetchAllTodos:function(){
 				$.ajax({
 				    type:'GET',
-				    url:'/fetchalltodos',
+				    url:'/todos',
 				    datatype:'json',
 				    success: function(data){
 				    	var allTodos = [], activeTodos = [], completedTodos = [], archivedTodos = [];
@@ -385,7 +383,7 @@ webpackJsonp([1],[
 				that = this;
 				$.ajax({
 				    type:'POST',
-				    url:'/savetodo',
+				    url:'/todo/update',
 				    datatype:'json',
 				    data:postData,
 				    success: function(data){
@@ -403,7 +401,7 @@ webpackJsonp([1],[
 				that = this;
 				$.ajax({
 				    type:'POST',
-				    url:'/deletetodo',
+				    url:'/todo/delete',
 				    datatype:'json',
 				    data:postData,
 				    success: function(data){
@@ -421,7 +419,7 @@ webpackJsonp([1],[
 				that = this;
 				$.ajax({
 				    type:'POST',
-				    url:'/markasfinished',
+				    url:'/todo/mark_complete',
 				    datatype:'json',
 				    data:postData,
 				    success: function(data){
@@ -439,7 +437,7 @@ webpackJsonp([1],[
 				that = this;
 				$.ajax({
 				    type:'POST',
-				    url:'/markasactive',
+				    url:'/todo/mark_incomplete',
 				    datatype:'json',
 				    data:postData,
 				    success: function(data){
@@ -550,7 +548,7 @@ webpackJsonp([1],[
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(4),__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$){
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1),__webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$){
 		var SingleTodo = React.createClass({displayName: "SingleTodo",
 			getInitialState:function(){
 				return {

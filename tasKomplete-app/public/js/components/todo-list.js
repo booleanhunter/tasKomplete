@@ -16,7 +16,7 @@ define(['react','jquery','./single-todo'],function(React,$,SingleTodo){
 		fetchAllTodos:function(){
 			$.ajax({
 			    type:'GET',
-			    url:'/fetchalltodos',
+			    url:'/todos',
 			    datatype:'json',
 			    success: function(data){
 			    	var allTodos = [], activeTodos = [], completedTodos = [], archivedTodos = [];
@@ -43,7 +43,7 @@ define(['react','jquery','./single-todo'],function(React,$,SingleTodo){
 			that = this;
 			$.ajax({
 			    type:'POST',
-			    url:'/savetodo',
+			    url:'/todo/update',
 			    datatype:'json',
 			    data:postData,
 			    success: function(data){
@@ -61,7 +61,7 @@ define(['react','jquery','./single-todo'],function(React,$,SingleTodo){
 			that = this;
 			$.ajax({
 			    type:'POST',
-			    url:'/deletetodo',
+			    url:'/todo/delete',
 			    datatype:'json',
 			    data:postData,
 			    success: function(data){
@@ -79,7 +79,7 @@ define(['react','jquery','./single-todo'],function(React,$,SingleTodo){
 			that = this;
 			$.ajax({
 			    type:'POST',
-			    url:'/markasfinished',
+			    url:'/todo/mark_complete',
 			    datatype:'json',
 			    data:postData,
 			    success: function(data){
@@ -97,7 +97,7 @@ define(['react','jquery','./single-todo'],function(React,$,SingleTodo){
 			that = this;
 			$.ajax({
 			    type:'POST',
-			    url:'/markasactive',
+			    url:'/todo/mark_incomplete',
 			    datatype:'json',
 			    data:postData,
 			    success: function(data){

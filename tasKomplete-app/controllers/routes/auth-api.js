@@ -13,20 +13,21 @@ define(
             var app = expressInstance,
                 debug = require('debug')('todoapp:auth-api');
 
-            app.get('/',function(req, res){
-                debug('request to /');
-                authApiHandlers.renderPage(req, function(argOne, argTwo){
-                    res.render(argOne, argTwo);
-                });
-            });
-
-            app.post('/checkforuser',function(req,res){
-                debug('request to /checkforuser');
+            app.post('/signup/username/verify',function(req,res){
+                debug('request to /signup/username/verify');
                 authApiHandlers.checkForUser(req, function(err, responseData){
                     if(err){
                         debug(err);
                     }else{
-                        res.json(responseData);
+                        if(responseData.userName){
+                            res.json({
+                                status: 'unavailable'
+                            });
+                        }else{
+                            res.json({
+                                status: 'available'
+                            });
+                        }
                     }
                 });
             });
@@ -57,18 +58,25 @@ define(
                     }
                 });
             });
-            app.post('/authenticate', function(req, res) {
-                authApiHandlers.registerNewUser(req, function(err, responseData){
-                    if(err){
-                        debug(err);
+            app.post('/login', function(req, res) {
+                debug('request to /login');
+                authApiHandlers.login(req, function(responseData){
+                    debug(responseData);
+                    if(responseData.userName){
+                        req.session.regenerate(function(){
+                            req.session.user = {
+                                userName: responseData.userName,
+                                displayName: responseData.displayName,
+                                status: 'loggedIn'
+                            };
+                            responseData.status = 'loggedIn'; 
+                            res.json(responseData);                        
+                        });         
                     }else{
-                        req.session.user = {
-                            userName: responseData.userName,
-                            displayName: responseData.displayName,
-                            status: responseData.status
-                        };
-                        res.json(resultData);
+                        responseData.status = 'authentication failure';
+                        res.json(responseData);
                     }
+                    
                 });
             });
 

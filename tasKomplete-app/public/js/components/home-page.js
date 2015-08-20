@@ -5,29 +5,28 @@ define(['react','jquery','./header'],function(React,$,Header){
 		},
 		verifyLogin:function(){
 			console.log('Login clicked');
-			var username = document.getElementById('loginNameInput').value,
+			var userName = document.getElementById('loginNameInput').value,
 				password = document.getElementById('loginPwInput').value,
 				postData = {
-					username: username,
+					userName: userName,
 					password: password 
 				};
 			//this code needs to be changed as the authentication technique is not secure.
 			$.ajax({
-			    type:'POST',
-			    url:'/authenticate',
-			    data:postData,
+			    type: 'POST',
+			    url: '/login',
+			    data: postData,
 			    datatype:'json',
 			    success: function(data){
-			    	if(data.status === 'authenticated'){
+			    	if(data.status === 'loggedIn'){
 			    		window.location.replace('/');
 			    	}else if(data.status === 'authentication failure'){
-			    		document.getElementById('loginErrMsg').innerHTML = "The username does not exist!"
-			    	}else if(data.status === 'password failure'){
-			    		document.getElementById('loginErrMsg').innerHTML = "It looks like you entered a wrong password. Please try again.";
-			    	}                
+			    		document.getElementById('loginErrMsg').innerHTML = "Looks like you entered wrong credentials. Please try again"
+			    	}               
 			    }.bind(this),
 			    error: function(httpRequest,status,error){
-			    	window.location.replace('/');
+			    	console.log('/');
+			    	//window.location.replace('/');
 			    }
 			});
 		},
@@ -39,11 +38,11 @@ define(['react','jquery','./header'],function(React,$,Header){
 				};
 				$.ajax({
 				    type:'POST',
-				    url:'/checkforuser',
+				    url:'/signup/username/verify',
 				    data:postData,
 				    datatype:'json',
 				    success: function(data){
-				  		if(data.status === 'exists'){
+				  		if(data.status === 'unavailable'){
 				  			document.getElementById('signupNameMsg').innerHTML = 'Username not available';
 				  			this.signup.usernameStatus = 'false';
 
