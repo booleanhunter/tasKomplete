@@ -1,0 +1,29 @@
+
+#componentContainer {
+	width: 100%;
+	min-height: 100%;
+}
+
+#homePage {	
+	min-width: 100%;
+	min-height: 100%;
+	position: absolute;
+}
+
+#signupHeader, #loginHeader, #loginErrMsg, #signupNameMsg, #signupPwMsg {
+	color: white;
+}
+
+
+
+/*  GRID OF TWO  */
+/*.loginSection, .signupSection {
+	width: 100%;
+}*/
+.loginSection, .signupSection, .todoInputSection, {
+	width: 30.2%;
+}
+
+@media only screen and (max-width: 600px) {
+	.signupSection, .loginSection, .todoInputSection, #todoList { width: 100%; }
+}
