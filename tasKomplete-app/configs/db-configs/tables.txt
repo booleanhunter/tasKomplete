@@ -1,0 +1,20 @@
+MongoDB Tables
+
+todoData :- For storing all todos information
+userData :- For storing all user information
+
+db.createCollection("todoData")
+{
+	"_id" : ObjectId("55b482d097b9417a0a141810"),
+	"username" : "ashwin",
+	"content" : "go to chowpatty",
+	"finishStatus" : false,
+	"date" : ISODate("2015-07-26T06:48:48.114Z")
+}
+
+db.createCollection("userData")
+{
+	"_id" : ObjectId("55538916501c1c3f7282e1a2"),
+	"username" : "ashwin",
+	"password" : "ashwin"
+}
