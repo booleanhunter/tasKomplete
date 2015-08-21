@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "async": "^1.4.2",
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.13.3",
     "connect-mongo": "^0.8.2",
     "consolidate": "^0.13.1",

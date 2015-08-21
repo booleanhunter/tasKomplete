@@ -31,16 +31,16 @@ define(['react','jquery','./header'],function(React,$,Header){
 			});
 		},
 		checkForUsername:function(){
-			var username = document.getElementById('signupNameInput');
-			if(username.value !== ''){
+			var userName = document.getElementById('signupNameInput');
+			if(userName.value !== ''){
 				var postData = {
-					username:username.value
+					userName: userName.value
 				};
 				$.ajax({
-				    type:'POST',
-				    url:'/signup/username/verify',
-				    data:postData,
-				    datatype:'json',
+				    type: 'POST',
+				    url: '/signup/username/verify',
+				    data: postData,
+				    datatype: 'json',
 				    success: function(data){
 				  		if(data.status === 'unavailable'){
 				  			document.getElementById('signupNameMsg').innerHTML = 'Username not available';
@@ -68,14 +68,14 @@ define(['react','jquery','./header'],function(React,$,Header){
 				document.getElementById('signupPwMsg').innerHTML = 'Passwords do not match';
 			}else if(that.signup.usernameStatus === 'ok' && pwOne !== ''){
 				var postData = {
-					username: userName,
+					userName: userName,
 					password: pwOne 
 				};
 				$.ajax({
-				    type:'POST',
-				    url:'/signup',
-				    data:postData,
-				    datatype:'json',
+				    type: 'POST',
+				    url: '/signup',
+				    data: postData,
+				    datatype: 'json',
 				    success: function(data){
 				    	window.location.replace('/');             
 				    }.bind(this),

@@ -25,12 +25,12 @@ define(
 						displayName: reqObj.displayName,
 						status: 'loggedIn'
 					}
+					callback(null, resultData);
 				}
 			});
 		}
 
 		exports.checkForUser = function(reqObj, callback){
-			debug(reqObj);
 			mongoDBClient.collection("userData").findOne({
 				username: reqObj.userName
 			}, function(err, results){
@@ -43,7 +43,6 @@ define(
 					callback(resultData);
 				}else{
 					if(results){
-						debug(results);
 						resultData = {
 							userName: results.username,
 							displayName: null,

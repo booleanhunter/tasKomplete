@@ -1,9 +1,10 @@
 define(
     [
         'async',
+        'bcrypt',
         '../../database/auth-db-api'
     ], 
-    function (async, authDbApi) {
+    function (async, bcrypt, authDbApi) {
     	var debug = require('debug')('todoapp:auth-api-handlers');
 
         function login(req, responseCallback){
@@ -18,25 +19,35 @@ define(
                         debug(err);
                     }else{
                         var resultData = {};
-                        if(results.length > 0){
-                            if(results[0].password === req.body.password){
-                                resultData = {
-                                    userName: results[0].userName,
-                                    displayName: results[0].displayName
+                        if(results[0].userName){
+                            bcrypt.compare(req.body.password, results[0].password, function(err, res) {
+                                if (err){
+                                    debug(err);
+                                }else{
+                                    if(res){
+                                        debug('success')
+                                        resultData = {
+                                            userName: results[0].userName,
+                                            displayName: results[0].displayName
+                                        }
+                                    }else{
+                                        debug('failure');
+                                        resultData = {
+                                            userName: null,
+                                            displayName: null
+                                        }
+                                    }
+
+                                    responseCallback(resultData);
                                 }
-                            }else{
-                                resultData = {
-                                    userName: null,
-                                    displayName: null
-                                }
-                            }
+                            });
                         }else{
                             resultData = {
                                 userName: null,
                                 displayName: null
                             }
+                            responseCallback(resultData);
                         }
-                        responseCallback(resultData);
                     }
                 }
             )
@@ -55,15 +66,19 @@ define(
                     }else{
                         var resultData = {};
                         if(results.length > 0){
-                            resultData = {
-                                userName: results[0].userName,
-                                displayName: results[0].displayName
-                            }
-                            
+                            if(results[0].userName){
+                                resultData = {
+                                    status: 'unavailable'
+                                }
+                                
+                            }else{
+                                resultData = {
+                                    status: 'available'
+                                }
+                            }               
                         }else{
                             resultData = {
-                                userName: null,
-                                displayName: null
+                                status: 'unavailable'
                             }
                         }
                         responseCallback(resultData);
@@ -74,7 +89,22 @@ define(
     	}
 
     	function registerNewUser(req, responseCallback){
-    		authDbApi.registerNewUser(req.body, responseCallback);
+            var SALT_WORK_FACTOR = 10,
+                reqObj = req.body;
+
+            bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+                if (err){
+                    debug(err);
+                }
+                // hash the password using our new salt
+                bcrypt.hash(reqObj.password, salt, function(err, hash) {
+                    if (err) return next(err);
+             
+                    // override the cleartext password with the hashed one
+                    reqObj.password = hash;
+                    authDbApi.registerNewUser(reqObj, responseCallback);
+                });
+            });
     	}
 
     	return {

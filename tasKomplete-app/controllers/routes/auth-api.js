@@ -13,56 +13,44 @@ define(
             var app = expressInstance,
                 debug = require('debug')('todoapp:auth-api');
 
-            app.post('/signup/username/verify',function(req,res){
+            app.post('/signup/username/verify', function(req, res){
                 debug('request to /signup/username/verify');
-                authApiHandlers.checkForUser(req, function(err, responseData){
+                authApiHandlers.checkForUser(req, function(responseData){
+                    res.json(responseData);
+                });
+            });
+
+            app.post('/signup', function(req, res){
+                authApiHandlers.registerNewUser(req, function(err, responseData){
                     if(err){
-                        debug(err);
+                        res.send({
+                            status: 'Error in registering user'
+                        });
                     }else{
-                        if(responseData.userName){
+                        req.session.regenerate(function(){
+                            req.session.user = {
+                                userName: responseData.userName,
+                                displayName: responseData.displayName,
+                                status: responseData.status
+                            };
+                            
+                            // if(req.body.gcmId)
+                            //     authApiHandlers.addAndroidRegId(req,res);
+                            
                             res.json({
-                                status: 'unavailable'
-                            });
-                        }else{
-                            res.json({
-                                status: 'available'
-                            });
-                        }
+                                status: 'authenticated'
+                            });                          
+                        });              
                     }
                 });
             });
 
-            app.post('/signup',function(req, res){
-                dbApi.registerNewUser(req, function(err, responseData){
-                    if(err){
-                        res.send({
-                            status:'Error in registering user'
-                        });
-                    }else{
-                        if(results.length > 0){
-                            req.session.regenerate(function(){
-                                req.session.user = {
-                                    userName: responseData.userName,
-                                    displayName: responseData.displayName,
-                                    status: responseData.status
-                                };
-                                
-                                // if(req.body.gcmId)
-                                //     authApiHandlers.addAndroidRegId(req,res);
-                                
-                                res.json({
-                                    status:'authenticated'
-                                });                          
-                            });
-                        }               
-                    }
-                });
-            });
             app.post('/login', function(req, res) {
                 debug('request to /login');
                 authApiHandlers.login(req, function(responseData){
                     debug(responseData);
                     if(responseData.userName){
+
                         req.session.regenerate(function(){
                             req.session.user = {
                                 userName: responseData.userName,
@@ -75,12 +63,11 @@ define(
                     }else{
                         responseData.status = 'authentication failure';
                         res.json(responseData);
-                    }
-                    
+                    }   
                 });
             });
 
-            app.get('/logout', function (req, res) {
+            app.get('/logout', function(req, res) {
                 debug('request to /logout');
                 //req.logOut();
                 /*Check out the revision 2 made in this above link*/
