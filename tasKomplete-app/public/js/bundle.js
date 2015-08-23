@@ -35,7 +35,12 @@ webpackJsonp([1],[
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(3), __webpack_require__(7), __webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React, $, Header, TodoList){
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+			__webpack_require__(1), 
+			__webpack_require__(3), 
+			__webpack_require__(7), 
+			__webpack_require__(8)
+		], __WEBPACK_AMD_DEFINE_RESULT__ = function(React, $, Header, TodoList){
 		var TodoApp = React.createClass({displayName: "TodoApp",
 			componentDidMount: function(){
 				this.fetchNotifications();	
@@ -174,8 +179,10 @@ webpackJsonp([1],[
 				)	
 			}
 		});
+
 		return TodoApp;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));		
+
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));		
 
 /***/ },
 /* 6 */
@@ -325,7 +332,7 @@ webpackJsonp([1],[
 			render: function(){
 				return (
 					React.createElement("div", {id: "header"}, 
-						React.createElement("h2", {id: "mainHeader"}, "A todo app built using Node-Express, React, Mongo and Webpack!")
+						React.createElement("h2", {id: "mainHeader"}, "Welcome to tasKomplete. Keep track of your tasks and increase your productivity!")
 					)
 				)
 			}

@@ -8,6 +8,7 @@
 	min-height: 100%;
 	position: absolute;
 	margin-top: 0px;
+	color: white;
 }
 
 #bgImg {
@@ -18,6 +19,8 @@
 	left: 0px;
 	width: 100%;
 	height: 100%;
+	-webkit-filter: blur(15px);
+  	filter: blur(15px);
 }
 
 .overlay {
@@ -36,8 +39,8 @@
 	margin-left:40px;
 	text-align: center;
 	color: rgb(231,95,93);
-	background-color: white;
-	width: 75px;
+	background-color: rgba(255,255,255,0.2);
+  	width: 100px;
 	height: 25px;
 	border-radius: 10px;
 	padding-top:5px;
@@ -84,21 +87,21 @@
 .column {
 	display: block;
 	float:left;
-	margin: 1% 0 1% 1.6%;  /*top right bottom left */
+	margin: 1% 0 1% 5%;  /*top right bottom left */
 }
 .column:first-child { margin-left: 20%; }
 .column:second-child { margin-left: 20%; }
 
 /*  GROUPING  */
 .group:before,
-.group:after { content:""; display:table; }
-.group:after { clear:both;}
-.group { zoom:1; /* For IE 6/7 */ }
+.group:after { content: ""; display: table; }
+.group:after { clear: both;}
+.group { zoom: 1; /* For IE 6/7 */ }
 
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+/*  GO FULL WIDTH AT LESS THAN 600 PIXELS */
 
 @media only screen and (max-width: 600px) {
 	.column { 
-		margin: 1% 0 1% 20%;
+		margin: 1% 0 1% 15%; /* top right bottom left*/
 	}
 }

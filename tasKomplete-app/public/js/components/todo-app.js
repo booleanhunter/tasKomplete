@@ -1,4 +1,10 @@
-define(['react', 'jquery', './header', './todo-list'],function(React, $, Header, TodoList){
+define(
+	[
+		'react', 
+		'jquery', 
+		'./header', 
+		'./todo-list'
+	],function(React, $, Header, TodoList){
 	var TodoApp = React.createClass({
 		componentDidMount: function(){
 			this.fetchNotifications();	
@@ -137,5 +143,8 @@ define(['react', 'jquery', './header', './todo-list'],function(React, $, Header,
 			)	
 		}
 	});
+
 	return TodoApp;
-});		
+
+	}
+);		

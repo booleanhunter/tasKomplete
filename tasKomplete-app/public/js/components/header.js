@@ -3,7 +3,7 @@ define(['react','jquery'],function(React,$){
 		render: function(){
 			return (
 				<div id="header">
-					<h2 id="mainHeader">A todo app built using Node-Express, React, Mongo and Webpack!</h2>
+					<h2 id="mainHeader">Welcome to tasKomplete. Keep track of your tasks and increase your productivity!</h2>
 				</div>
 			)
 		}
