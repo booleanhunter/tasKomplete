@@ -14,11 +14,30 @@
 	color: white;
 }
 
-#signupSection {
-	border-style: solid;
-	border-radius: 50px;
+#signupSection, #loginSection {
+	border: 2px solid;
+	border-radius: 6px;
 	/*margin-left: 5%;*/
-	padding-left: 5%;
-	padding-right: 3%;
-	padding-bottom: 1%
+	padding: 1.5% 3%;
+	min-height: 5em;
+	width: auto;
+}
+
+#signupSection h5, #loginSection h5 {
+	margin-bottom: -0.25em;
+}
+#signupSection h3, #loginSection h3 {
+	font-size: 2.5em;
+}
+#mainHeader {
+	font-size: 1.5em;
+	margin: 1.5em .5em;
+}
+#homePage #contentWrapper {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: stretch;
 }

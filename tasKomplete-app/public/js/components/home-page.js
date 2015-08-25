@@ -91,37 +91,40 @@ define(['react','jquery','./header'],function(React,$,Header){
 	  		var that = this;
 		    return (
 		    	<div id="homePage">
-		    		<Header />
+		    		
 
 		    		<div id="main" className="section group">
+		    			<Header />
+		    			<div id="contentWrapper" className="section group">
+				     		<div id="loginSection" className="column loginSection">
+				     			<h5>Existing user?</h5>
+				     			<h3 id="loginHeader">Login</h3>
+					    		<p className="inputClassOne">
+					     			<input type = "text" id="loginNameInput" placeholder="User-name"/>
+					     		</p>
+					     		<p className="inputClassOne">
+					     			<input type= "password" id = "loginPwInput" placeholder="Password"/>
+					     		</p>
+					     		<div onClick={that.verifyLogin} className="buttonClassOne" id="loginButton">Login</div>		
+					     		<div id = "loginErrMsg"></div>
+					     	</div>
 
-			     		<div id="loginSection" className="column loginSection">
-			     			<h3 id="loginHeader">Login</h3>
-				    		<p className="inputClassOne">
-				     			<input type = "text" id="loginNameInput" placeholder="User-name"/>
-				     		</p>
-				     		<p className="inputClassOne">
-				     			<input type= "password" id = "loginPwInput" placeholder="Password"/>
-				     		</p>
-				     		<div onClick={that.verifyLogin} className="buttonClassOne" id="loginButton">Login</div>		
-				     		<div id = "loginErrMsg"></div>
+				     		<div id="signupSection" className="column signupSection">
+				     			<h5>Are you a new user?</h5>
+				     			<h3 id="signupHeader">Sign Up!</h3>
+				     			<p className="inputClassOne" >
+				     				<input type="text" id="signupNameInput" placeholder="Choose a username" onBlur={that.checkForUsername} />
+				     				<div id="signupNameMsg"></div>
+				     			</p>
+				     			<p className="inputClassOne" >
+				     				<input type="password" id="signupPwInputOne" placeholder="Choose a password" />
+				     				<br/><br/>
+				     				<input type="password" id="signupPwInputTwo" placeholder="Re-enter your password" />
+				   					<div id="signupPwMsg"></div>
+				     			</p>
+				     			<div onClick={that.signup} className="buttonClassOne" id="signupButton">Sign Up!</div>	
+				     		</div>
 				     	</div>
-
-			     		<div id="signupSection" className="column signupSection">
-			     			<h3 id="signupHeader">Are you a new user? Sign Up!</h3>
-			     			<p className="inputClassOne" >
-			     				<input type="text" id="signupNameInput" placeholder="Choose a username" onBlur={that.checkForUsername} />
-			     				<div id="signupNameMsg"></div>
-			     			</p>
-			     			<p className="inputClassOne" >
-			     				<input type="password" id="signupPwInputOne" placeholder="Choose a password" />
-			     				<br/><br/>
-			     				<input type="password" id="signupPwInputTwo" placeholder="Re-enter your password" />
-			   					<div id="signupPwMsg"></div>
-			     			</p>
-			     			<div onClick={that.signup} className="buttonClassOne" id="signupButton">Sign Up!</div>	
-			     		</div>
-
 			     		<div id="bgImg"></div>
 			     		<div className="overlay"></div>
 			     	</div>	

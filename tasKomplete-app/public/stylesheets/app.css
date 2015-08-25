@@ -1,3 +1,13 @@
+body {
+	font-family: "Source Sans Pro",sans-serif;
+	background: #d2d1d1;
+}
+h1,h2,h3,h4,h5 {
+	font-weight: lighter;
+	margin:0;
+	text-align: center;
+}
+
 #componentContainer {
 	width: 100%;
 	min-height: 100%;
@@ -20,7 +30,9 @@
 	width: 100%;
 	height: 100%;
 	-webkit-filter: blur(15px);
-  	filter: blur(15px);
+	-moz-filter: blur(15px);
+  	/*filter: blur(15px);*/
+  	filter: url(blur.svg#blur);
 }
 
 .overlay {
@@ -42,7 +54,7 @@
 	background-color: rgba(255,255,255,0.2);
   	width: 100px;
 	height: 25px;
-	border-radius: 10px;
+	border-radius: 4px;
 	padding-top:5px;
 	border-style: solid;
 	border-width: 1px;
@@ -64,8 +76,10 @@
 /*Apply class inputClassOne to apply this  style for input boxes*/
 .inputClassOne input[type="text"], input[type="password"]{
 	padding: 10px;
+	margin: 0.5em 0;
 	border: solid 1px #dcdcdc;
 	transition: box-shadow 0.3s, border 0.3s;
+	border-radius: 4px;
 }
 .inputClassOne input[type="text"]:focus, .inputClassOne input[type="text"].focus,
 .inputClassOne input[type="password"]:focus, .inputClassOne input[type="password"].focus
@@ -86,11 +100,12 @@
 /*  COLUMN SETUP  */
 .column {
 	display: block;
-	float:left;
+	float: left;
 	margin: 1% 0 1% 5%;  /*top right bottom left */
+	margin: 3%;
 }
-.column:first-child { margin-left: 20%; }
-.column:second-child { margin-left: 20%; }
+/*.column:first-child { margin-left: 20%; }
+.column:second-child { margin-left: 20%; }*/
 
 /*  GROUPING  */
 .group:before,
@@ -100,8 +115,8 @@
 
 /*  GO FULL WIDTH AT LESS THAN 600 PIXELS */
 
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) and (max-device-width: 600px){
 	.column { 
-		margin: 1% 0 1% 15%; /* top right bottom left*/
+		margin: 1% 0 1% 15%; 
 	}
-}
+}*/

@@ -281,37 +281,40 @@ webpackJsonp([1],[
 		  		var that = this;
 			    return (
 			    	React.createElement("div", {id: "homePage"}, 
-			    		React.createElement(Header, null), 
+			    		
 
 			    		React.createElement("div", {id: "main", className: "section group"}, 
+			    			React.createElement(Header, null), 
+			    			React.createElement("div", {id: "contentWrapper", className: "section group"}, 
+					     		React.createElement("div", {id: "loginSection", className: "column loginSection"}, 
+					     			React.createElement("h5", null, "Existing user?"), 
+					     			React.createElement("h3", {id: "loginHeader"}, "Login"), 
+						    		React.createElement("p", {className: "inputClassOne"}, 
+						     			React.createElement("input", {type: "text", id: "loginNameInput", placeholder: "User-name"})
+						     		), 
+						     		React.createElement("p", {className: "inputClassOne"}, 
+						     			React.createElement("input", {type: "password", id: "loginPwInput", placeholder: "Password"})
+						     		), 
+						     		React.createElement("div", {onClick: that.verifyLogin, className: "buttonClassOne", id: "loginButton"}, "Login"), 		
+						     		React.createElement("div", {id: "loginErrMsg"})
+						     	), 
 
-				     		React.createElement("div", {id: "loginSection", className: "column loginSection"}, 
-				     			React.createElement("h3", {id: "loginHeader"}, "Login"), 
-					    		React.createElement("p", {className: "inputClassOne"}, 
-					     			React.createElement("input", {type: "text", id: "loginNameInput", placeholder: "User-name"})
-					     		), 
-					     		React.createElement("p", {className: "inputClassOne"}, 
-					     			React.createElement("input", {type: "password", id: "loginPwInput", placeholder: "Password"})
-					     		), 
-					     		React.createElement("div", {onClick: that.verifyLogin, className: "buttonClassOne", id: "loginButton"}, "Login"), 		
-					     		React.createElement("div", {id: "loginErrMsg"})
+					     		React.createElement("div", {id: "signupSection", className: "column signupSection"}, 
+					     			React.createElement("h5", null, "Are you a new user?"), 
+					     			React.createElement("h3", {id: "signupHeader"}, "Sign Up!"), 
+					     			React.createElement("p", {className: "inputClassOne"}, 
+					     				React.createElement("input", {type: "text", id: "signupNameInput", placeholder: "Choose a username", onBlur: that.checkForUsername}), 
+					     				React.createElement("div", {id: "signupNameMsg"})
+					     			), 
+					     			React.createElement("p", {className: "inputClassOne"}, 
+					     				React.createElement("input", {type: "password", id: "signupPwInputOne", placeholder: "Choose a password"}), 
+					     				React.createElement("br", null), React.createElement("br", null), 
+					     				React.createElement("input", {type: "password", id: "signupPwInputTwo", placeholder: "Re-enter your password"}), 
+					   					React.createElement("div", {id: "signupPwMsg"})
+					     			), 
+					     			React.createElement("div", {onClick: that.signup, className: "buttonClassOne", id: "signupButton"}, "Sign Up!")	
+					     		)
 					     	), 
-
-				     		React.createElement("div", {id: "signupSection", className: "column signupSection"}, 
-				     			React.createElement("h3", {id: "signupHeader"}, "Are you a new user? Sign Up!"), 
-				     			React.createElement("p", {className: "inputClassOne"}, 
-				     				React.createElement("input", {type: "text", id: "signupNameInput", placeholder: "Choose a username", onBlur: that.checkForUsername}), 
-				     				React.createElement("div", {id: "signupNameMsg"})
-				     			), 
-				     			React.createElement("p", {className: "inputClassOne"}, 
-				     				React.createElement("input", {type: "password", id: "signupPwInputOne", placeholder: "Choose a password"}), 
-				     				React.createElement("br", null), React.createElement("br", null), 
-				     				React.createElement("input", {type: "password", id: "signupPwInputTwo", placeholder: "Re-enter your password"}), 
-				   					React.createElement("div", {id: "signupPwMsg"})
-				     			), 
-				     			React.createElement("div", {onClick: that.signup, className: "buttonClassOne", id: "signupButton"}, "Sign Up!")	
-				     		), 
-
 				     		React.createElement("div", {id: "bgImg"}), 
 				     		React.createElement("div", {className: "overlay"})
 				     	)	
