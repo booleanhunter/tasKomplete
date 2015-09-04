@@ -13,6 +13,7 @@ var config = {
   	        react: node_dir + '/react/dist/react.js',
   	        jquery: lib_dir + '/jquery-1.11.2.min.js',  
   	        elastic: lib_dir + '/jquery.elastic.source.js',
+            avgrund: lib_dir + '/avgrund.js'
   	    }
   	}, 
     plugins: [
@@ -24,7 +25,7 @@ var config = {
 
   	entry: {
   	  	app: ['./public/js/main.js'],
-  	  	vendors: ['react','jquery','elastic']
+  	  	vendors: ['react', 'jquery', 'elastic', 'avgrund']
   	},
   	// The resolve.alias object takes require expressions 
   	  // (require('react')) as keys and filepath to actual

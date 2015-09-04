@@ -29,9 +29,32 @@
 #signupSection h3, #loginSection h3 {
 	font-size: 2.5em;
 }
-#mainHeader {
+/*#header > h2 {
 	font-size: 1.5em;
-	margin: 1.5em .5em;
+	margin: 1.2em .5em;
+}*/
+#header  {
+	font-size: 1.5em;
+	margin-top: 1.2em;
+	margin-bottom: 1.2em;
+}
+.header {
+	font-size: 1.2em;
+	margin: 1.2em 1em 1.5em 1em;
+	height: 1em;
+}
+#header-left{
+	left: 1%;
+	width: 10%;
+	float: left;
+}
+#header-middle{
+	width: 70%;
+	float: left;
+}
+#header-right{
+	width: 10%;
+	float: right;
 }
 #homePage #contentWrapper {
 	display: flex;

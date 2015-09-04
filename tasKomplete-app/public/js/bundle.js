@@ -13,17 +13,17 @@ webpackJsonp([1],[
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React){
 		
 		console.log('Loaded the Home Page');
-		var usernameHeader = document.getElementById('usernameHeader').getAttribute('data-user-name');
-		if(usernameHeader){
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = function(TodoApp){
-				React.render(React.createElement(TodoApp, {username: usernameHeader}), document.getElementById('componentContainer'));
+		var userName = document.getElementById('usernameHeader').getAttribute('data-user-name');
+		if(userName){
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = function(TodoApp){
+				React.render(React.createElement(TodoApp, {userName: userName}), document.getElementById('componentContainer'));
 			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));		
 		}else{
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = function(HomePage){
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function(HomePage){
 				React.render(React.createElement(HomePage, null), document.getElementById('componentContainer'));
 			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));		
 		}
-		//console.log($('#usernameHeader'));
+		//console.log($('#userName'));
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 	//webpack --progress --colors --watch (for development)
@@ -32,15 +32,17 @@ webpackJsonp([1],[
 /***/ },
 /* 3 */,
 /* 4 */,
-/* 5 */
+/* 5 */,
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
 			__webpack_require__(1), 
 			__webpack_require__(3), 
-			__webpack_require__(7), 
-			__webpack_require__(8)
-		], __WEBPACK_AMD_DEFINE_RESULT__ = function(React, $, Header, TodoList){
+			__webpack_require__(8), 
+			__webpack_require__(9),
+			__webpack_require__(10)
+		], __WEBPACK_AMD_DEFINE_RESULT__ = function(React, $, Header, TodoList, TaskPopup){
 		var TodoApp = React.createClass({displayName: "TodoApp",
 			componentDidMount: function(){
 				this.fetchNotifications();	
@@ -58,100 +60,22 @@ webpackJsonp([1],[
 					}
 				});
 			},
-			createNewTodo: function(e){
-				var inputTodo = document.getElementById('inputTodo'),
-					that = this;
-				if(inputTodo.value !== ''){
-					var postData = {
-						todoContent : inputTodo.value
-					};
-					$.ajax({
-					    type:'POST',
-					    url:'/todos',
-					    datatype:'json',
-					    data:postData,
-					    success: function(data){
-					    	inputTodo.value = '';
-					    	that.refs.TodoList.fetchAllTodos();          
-					    },
-					    error: function(httpRequest,status,error){
-					    	console.log(error)
-					    }
-					});
-				}			
-				e.preventDefault();
-			},		
-			assignTodo: function(){
-				var assigneeInput = document.getElementById('assigneeInput'),
-					assignTodoInput = document.getElementById('assignTodoInput'),
-					that = this;
-
-				if(assigneeInput.value !== '' && assignTodoInput.value !== ''){
-					var postData = {
-						assignTo: assigneeInput.value,
-						todoContent: assignTodoInput.value
-					};
-					$.ajax({
-						type:'POST',
-						url:'/assigntodo',
-						datatype:'json',
-						data:postData,
-						success: function(data){
-							if(data.status === 'invalid'){
-								assigneeInput.setAttribute('placeholder','The username does not belong to any account');
-								assigneeInput.className = 'error';
-							}else{
-								assigneeInput.setAttribute('placeholder','Assign a todo to another user. Enter the username');
-								assigneeInput.className = '';
-							}
-						},
-						error: function(httpRequest,status,error){
-							console.log(error);
-						}
-					});
-				}else{
-					if(assigneeInput.value === ''){
-						assigneeInput.setAttribute('placeholder','You must enter a valid username');
-						assigneeInput.className = 'error';
-					}
-					if(assignTodoInput.value === ''){
-						assignTodoInput.setAttribute('placeholder','Please enter the content');
-						assignTodoInput.className = 'error';
-					}
-				}			
-				console.log(assigneeInput);
-				console.log(assignTodoInput);
+			fetchAllTodos: function(){
+				this.refs.TodoList.fetchAllTodos();
 			},
+			showTaskPopup: function(){
+				React.render(React.createElement(TaskPopup, {
+					fetchAllTodos: this.fetchAllTodos, 
+					fetchAllTodos: this.fetchAllTodos}), document.getElementById('popup-container'));
+			},	
 			render:function(){
-				var style = {
-					fontSize:"200%"
-				};
 				return (
 					React.createElement("div", {id: "todoApp"}, 
-						React.createElement(Header, null), 
-						React.createElement("h3", {id: "username"}, "Welcome, ", this.props.username, " "), 
-						React.createElement("div", {id: "logoutButton"}, 
-							React.createElement("a", {href: "/logout"}, " Logout ")
-						), 	
-
+						React.createElement(Header, {userName: this.props.userName}), 
 						React.createElement("div", {id: "main", className: "section group"}, 
-				     		React.createElement("div", {className: "column todoInputSection"}, 
-	     						React.createElement("form", {onSubmit: this.createNewTodo, className: "inputClassOne"}, 
-	     			  				React.createElement("input", {type: "text", id: "inputTodo", placeholder: "Enter a todo"})
-	     					    ), 
-
-	     					    React.createElement("label", null, React.createElement("input", {style: style, type: "checkbox", className: "switch", checked: true}), "Tools")
-					     	), 
-
-		     	     		React.createElement("div", {className: "column todoInputSection"}, 
-		     	     			React.createElement("div", {className: "assignTodoSection inputClassOne"}, 
-		     	     			    React.createElement("input", {type: "text", id: "assigneeInput", placeholder: "Assign a todo to another user. Enter the username"}), 
-		     	     			    React.createElement("div", {id: "assigneeInputErr"}), 
-		     	     			    React.createElement("input", {type: "text", id: "assignTodoInput", placeholder: "Enter the todo to assign to a user"}), 
-		     	     			    React.createElement("div", {id: "assignTodoErr"}), 
-		     	     			    React.createElement("input", {type: "button", id: "assignTodoSubmit", onClick: this.assignTodo, value: "Assign"})
-		     	     			)
-		     		     	), 
+							React.createElement("div", {id: "task-button", className: "buttonClassOne", onClick: this.showTaskPopup}, 
+								"Enter a Task"
+							), 	
 		     		     	React.createElement("br", null), 
 
 		     		     	React.createElement(TodoList, {ref: "TodoList"}), 
@@ -160,21 +84,6 @@ webpackJsonp([1],[
 		     		     	React.createElement("div", {className: "overlay"})
 
 						)
-						/*
-						<form onSubmit={this.createNewTodo} className="pure-form">
-			  				<input type="text" id="inputTodo" placeholder="Enter a todo" />
-					    </form>
-
-					    <div className="assignTodoSection pure-form">
-					        <input type="text" id="assigneeInput" placeholder="Assign a todo to another user. Enter the username" />
-					        <div id="assigneeInputErr"></div>
-					        <input type="text" id="assignTodoInput" placeholder="Enter the todo to assign to a user" />
-					        <div id="assignTodoErr"></div>
-					        <input type="button" id="assignTodoSubmit" className="pure-button" onClick={this.assignTodo} value="Assign"/>
-					    </div>
-						<TodoList ref="TodoList"/> */
-						
-						
 					)
 				)	
 			}
@@ -185,10 +94,10 @@ webpackJsonp([1],[
 		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));		
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1),__webpack_require__(3),__webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$,Header){
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1),__webpack_require__(3),__webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$,Header){
 		var HomePage = React.createClass({displayName: "HomePage",
 			signup:{
 				usernameStatus:'false'
@@ -282,7 +191,7 @@ webpackJsonp([1],[
 			    return (
 			    	React.createElement("div", {id: "homePage"}, 
 			    		
-
+			    		
 			    		React.createElement("div", {id: "main", className: "section group"}, 
 			    			React.createElement(Header, null), 
 			    			React.createElement("div", {id: "contentWrapper", className: "section group"}, 
@@ -327,17 +236,36 @@ webpackJsonp([1],[
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1),__webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$){
 		var Header = React.createClass({displayName: "Header",
 			render: function(){
-				return (
-					React.createElement("div", {id: "header"}, 
-						React.createElement("h2", {id: "mainHeader"}, "Welcome to tasKomplete. Keep track of your tasks and increase your productivity!")
+				if(this.props.userName){
+					return (
+						React.createElement("div", {id: "header", className: "header"}, 
+							React.createElement("div", {id: "header-left"}, 
+								React.createElement("h3", null, "tasKomplete")
+							), 
+							React.createElement("div", {id: "header-middle"}, 
+								React.createElement("h3", null, "Welcome, ", this.props.userName)
+							), 
+							React.createElement("div", {id: "header-right"}, 
+								React.createElement("div", {id: "logout-button"}, 
+									React.createElement("a", {href: "/logout"}, " Logout ")
+								)
+							)
+						)
 					)
-				)
+				}else{
+					return (
+						React.createElement("div", {id: "header"}, 
+							React.createElement("h2", null, "Welcome to tasKomplete. Organize your tasks, keep track of active ones, and increase your productivity!")
+						)
+					)
+				}
+				
 			}
 		});
 
@@ -345,10 +273,10 @@ webpackJsonp([1],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1),__webpack_require__(3),__webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$,SingleTodo){ 
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1),__webpack_require__(3),__webpack_require__(11)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$,SingleTodo){ 
 		var TodoList = React.createClass({displayName: "TodoList",
 			getInitialState:function(){
 				return {
@@ -555,7 +483,130 @@ webpackJsonp([1],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
 
 /***/ },
-/* 9 */
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+			__webpack_require__(1),
+			__webpack_require__(3),
+			__webpack_require__(5)
+		], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$, avgrund){
+			
+			var TaskPopup = React.createClass({displayName: "TaskPopup",
+				getInitialState: function(){
+	                return {
+	                    Avgrund: avgrund.Avgrund()
+	                }
+	            },        
+				createNewTodo: function(e){
+					var inputTodo = document.getElementById('inputTodo'),
+						that = this;
+					if(inputTodo.value !== ''){
+						var postData = {
+							todoContent : inputTodo.value
+						};
+						$.ajax({
+						    type:'POST',
+						    url:'/todos',
+						    datatype:'json',
+						    data:postData,
+						    success: function(data){
+						    	inputTodo.value = '';
+						    	that.props.fetchAllTodos();          
+						    },
+						    error: function(httpRequest,status,error){
+						    	console.log(error)
+						    }
+						});
+					}			
+					e.preventDefault();
+				},
+				assignTodo: function(){
+					var assigneeInput = document.getElementById('assigneeInput'),
+						assignTodoInput = document.getElementById('assignTodoInput'),
+						that = this;
+
+					if(assigneeInput.value !== '' && assignTodoInput.value !== ''){
+						var postData = {
+							assignTo: assigneeInput.value,
+							todoContent: assignTodoInput.value
+						};
+						$.ajax({
+							type: 'POST',
+							url: '/assigntodo',
+							datatype:' json',
+							data: postData,
+							success: function(data){
+								if(data.status === 'invalid'){
+									assigneeInput.setAttribute('placeholder','The username does not belong to any account');
+									assigneeInput.className = 'error';
+								}else{
+									assigneeInput.setAttribute('placeholder','Assign a todo to another user. Enter the username');
+									assigneeInput.className = '';
+								}
+							},
+							error: function(httpRequest,status,error){
+								console.log(error);
+							}
+						});
+					}else{
+						if(assigneeInput.value === ''){
+							assigneeInput.setAttribute('placeholder','You must enter a valid username');
+							assigneeInput.className = 'error';
+						}
+						if(assignTodoInput.value === ''){
+							assignTodoInput.setAttribute('placeholder','Please enter the content');
+							assignTodoInput.className = 'error';
+						}
+					}			
+					console.log(assigneeInput);
+					console.log(assignTodoInput);
+				},
+				showTaskPopup: function(){
+					this.state.Avgrund.show("#task-popup");
+				},
+				hideTaskPopup: function(){
+					this.state.Avgrund.hide();
+				},
+				componentDidMount: function(){
+					this.state.Avgrund.show("#task-popup");
+				},
+				componentWillReceiveProps: function(){
+					this.state.Avgrund.show("#task-popup");
+				},
+				render: function(){
+					var style = {
+						fontSize:"200%"
+					};
+					return (
+						React.createElement("div", {id: "task-popup", className: "avgrund-popup"}, 
+				     		React.createElement("div", {className: "column todoInputSection"}, 
+									React.createElement("form", {onSubmit: this.createNewTodo, className: "inputClassOne"}, 
+						  				React.createElement("input", {type: "text", id: "inputTodo", placeholder: "Enter a todo"})
+								    ), 
+
+								    React.createElement("label", null, React.createElement("input", {style: style, type: "checkbox", className: "switch", checked: true}), "Tools")
+					     	), 
+
+			 	     		React.createElement("div", {className: "column todoInputSection"}, 
+			 	     			React.createElement("div", {className: "assignTodoSection inputClassOne"}, 
+			 	     			    React.createElement("input", {type: "text", id: "assigneeInput", placeholder: "Assign a todo to another user. Enter the username"}), 
+			 	     			    React.createElement("div", {id: "assigneeInputErr"}), 
+			 	     			    React.createElement("input", {type: "text", id: "assignTodoInput", placeholder: "Enter the todo to assign to a user"}), 
+			 	     			    React.createElement("div", {id: "assignTodoErr"}), 
+			 	     			    React.createElement("input", {type: "button", id: "assignTodoSubmit", onClick: this.assignTodo, value: "Assign"})
+			 	     			)
+			 		     	)
+		 		     	)
+					)
+				}
+			});
+
+			return TaskPopup
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1),__webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function(React,$){
