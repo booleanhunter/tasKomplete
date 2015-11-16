@@ -18,3 +18,39 @@ db.createCollection("userData")
 	"username" : "ashwin",
 	"password" : "ashwin"
 }
+
+
+Cassandra stuff 
+
+CREATE KEYSPACE tasKomplete WITH replication = {   'class':'SimpleStrategy', 'replication_factor' : 1 };
+
+CREATE TABLE todoData (
+	username text,
+	date bigint,
+  	post_id timeuuid, 	
+  	content text,
+  	finishStatus boolean,	
+  	PRIMARY KEY ((username, <column1>, <column2>), post_date, post_id)
+)
+WITH CLUSTERING ORDER BY (post_date DESC, post_id DESC);
+
+CREATE TABLE userData (
+	username text,
+  	password text,
+  	profile_creation_date bigint,
+  	emails list<text>,	
+  	PRIMARY KEY ((username))
+);
+
+SELECT * from todoData WHERE username = 'ashwin' AND post_category IN ('<column1>','<column2>') ORDER BY date DESC LIMIT 20 ;
+
+SELECT * from todoData WHERE username = 'ashwin' AND post_category IN ('<column1>') AND date = '2015-05-30 14:37:03+0000' AND post_id = '12345' ;
+
+INSERT INTO todoData (username, date, post_id, content, finishStatus) VALUES ( 'ashwin', '2015-05-30 14:37:03+0000', now(), 'my first todo', false);
+
+TRUNCATE todoData
+DROP TABLE todoData
+
+ALTER TABLE userData ADD displayPicture text;
+ALTER TABLE userData ALTER profile_creation_date timestamp;
+ALTER TABLE <tablename> ALTER <columnname> TYPE <datatype>

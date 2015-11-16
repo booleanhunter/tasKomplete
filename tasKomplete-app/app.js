@@ -19,7 +19,7 @@ requirejs(
 	function(http, https, async, fs, express, expressConfigs, configMongodb){
 		var expressInstance = expressConfigs.configure(),
 			debug = require('debug')('todoapp:app'),
-			serverPort = 8000;
+			serverPort = 9992;
 
 		http.createServer(expressInstance).listen(serverPort, function () {
 		    debug('TodoApp Server running on ' + serverPort);
