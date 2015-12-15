@@ -42,6 +42,10 @@ CREATE TABLE userData (
   	PRIMARY KEY ((username))
 );
 
+DESCRIBE KEYSPACE tasKomplete
+DESCRIBE TABLES
+DESCRIBE TABLE todoData
+
 SELECT * from todoData WHERE username = 'ashwin' AND post_category IN ('<column1>','<column2>') ORDER BY date DESC LIMIT 20 ;
 
 SELECT * from todoData WHERE username = 'ashwin' AND post_category IN ('<column1>') AND date = '2015-05-30 14:37:03+0000' AND post_id = '12345' ;
