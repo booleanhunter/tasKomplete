@@ -19,13 +19,13 @@ define(['react','jquery','./header'],function(React,$,Header){
 			    datatype:'json',
 			    success: function(data){
 			    	if(data.status === 'loggedIn'){
-			    		window.location.replace('/');
+			    		window.location.replace('/mytodos');
 			    	}else if(data.status === 'authentication failure'){
 			    		document.getElementById('loginErrMsg').innerHTML = "Looks like you entered wrong credentials. Please try again"
 			    	}               
 			    }.bind(this),
 			    error: function(httpRequest,status,error){
-			    	console.log('/');
+			    	console.log('/mytodos');
 			    	//window.location.replace('/');
 			    }
 			});
@@ -77,10 +77,10 @@ define(['react','jquery','./header'],function(React,$,Header){
 				    data: postData,
 				    datatype: 'json',
 				    success: function(data){
-				    	window.location.replace('/');             
+				    	window.location.replace('/mytodos');             
 				    }.bind(this),
 				    error: function(httpRequest,status,error){
-				    	window.location.replace('/');
+				    	window.location.replace('/mytodos');
 				    }
 				});
 			}else{

@@ -7,9 +7,7 @@ define(['react'],function(React){
 			React.render(<TodoApp userName={userName} />, document.getElementById('componentContainer'));
 		});		
 	}else{
-		define(['./components/home-page'],function(HomePage){
-			React.render(<HomePage />, document.getElementById('componentContainer'));
-		});		
+		window.location.replace('/');		
 	}
 	//console.log($('#userName'));
 });

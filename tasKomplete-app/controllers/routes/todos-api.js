@@ -96,7 +96,7 @@ define(
                 });
             });
 
-            app.get('/',function(req, res){
+            app.get('/mytodos',function(req, res){
                 debug('request to /');
                 todosApiHandlers.renderPage(req, function(argOne, argTwo){
                     res.render(argOne, argTwo);

@@ -26,7 +26,8 @@ var config = {
   	],
 
   	entry: {
-  	  	app: ['./public/src/js/main.js'],
+        login: ['./public/src/js/login.js'],
+  	  	todos: ['./public/src/js/todos.js'],
   	  	vendors: ['react', 'jquery', 'elastic', 'avgrund']
   	},
   	// The resolve.alias object takes require expressions 

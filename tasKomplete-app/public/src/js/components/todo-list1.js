@@ -11,9 +11,7 @@ define(
 					allTodos:[],
 					activeTodos:[],
 					completedTodos:[],
-					todoContentStyle:{
-						display:'none'
-					}
+					todosToDisplay: 'all'
 				}
 			},
 			componentDidMount:function(){
@@ -137,26 +135,45 @@ define(
 				    }
 				});
 			},
-			
-			showAllTodos:function(){
-				document.getElementById('allTodosHeader').className = "selected";
-				document.getElementById('activeTodosHeader').className = '';
-				document.getElementById('completedTodosHeader').className = '';
+			showTodos:function(todosToDisplay,elementId){
+				this.setState({
+					todosToDisplay: todosToDisplay
+				});	
 			},
-			showActiveTodos:function(){
+			componentDidUpdate: function(argument) {
+				var selectedElements = document.getElementsByClassName("selected");
 
-				document.getElementById('allTodosHeader').className = '';
-				document.getElementById('activeTodosHeader').className = 'selected';
-				document.getElementById('completedTodosHeader').className = '';
-			},
-			showCompletedTodos:function(){
-				document.getElementById('allTodosHeader').className = '';
-				document.getElementById('activeTodosHeader').className = '';
-				document.getElementById('completedTodosHeader').className = 'selected';
+				for(var i=0; i < selectedElements.length; i++){
+					selectedElements[i].className = selectedElements[i].className.replace(/selected/g,'');
+					console.log(selectedElements[i].className)
+				};
+				switch(this.state.todosToDisplay){
+					case 'all':
+						document.getElementById('allTodosHeader').className += " selected";;
+						break;
+					case 'active':
+						document.getElementById('activeTodosHeader').className += " selected";;
+						break;
+					case 'completed':
+						document.getElementById('completedTodosHeader').className += " selected";
+						break;
+				}	
 			},
 			render:function(){
-				var that = this;
-				var allTodos = this.state.allTodos.map(function(todo){
+				var that = this, todos; 
+				switch(this.state.todosToDisplay){
+					case 'all':
+						todos = that.state.allTodos;
+						break;
+					case 'active':
+						todos = that.state.activeTodos;
+						break;
+					case 'completed':
+						todos = that.state.completedTodos;
+						break;
+				}
+
+				var todoComponents = todos.map(function(todo){
 					return (
 						<SingleTodo 
 							key={"all"+todo._id} 
@@ -167,37 +184,6 @@ define(
 							date={todo.date} 
 							deleteTodo={that.deleteTodo}
 							saveTodo={that.saveTodo}  
-							markAsFinished={that.markAsFinished} 
-							markAsActive={that.markAsActive} />
-					)	
-				});
-				var activeTodos = this.state.activeTodos.map(function(todo){
-					return (
-						<SingleTodo 
-							key={todo._id} 
-							todoId={todo._id}
-							content={todo.content} 
-							finishStatus={todo.finishStatus} 
-							archived={todo.archived} 
-							date={todo.date} 
-							deleteTodo={that.deleteTodo} 
-							saveTodo={that.saveTodo} 
-							markAsFinished={that.markAsFinished} 
-							markAsActive={that.markAsActive} />
-					)	
-				});
-
-				var completedTodos = this.state.completedTodos.map(function(todo){
-					return (
-						<SingleTodo 
-							key={todo._id}  
-							todoId={todo._id}
-							content={todo.content} 
-							finishStatus={todo.finishStatus} 
-							archived={todo.archived} 
-							date={todo.date} 
-							deleteTodo={that.deleteTodo} 
-							saveTodo={that.saveTodo}
 							markAsFinished={that.markAsFinished} 
 							markAsActive={that.markAsActive} />
 					)	
@@ -219,20 +205,34 @@ define(
 						    <section className="main" >
 						    	<input className="toggle-all" type="checkbox" />
 						        <ul className="todo-list" >
-						        	{allTodos}
+						        	{todoComponents}
 						        </ul>
 						    </section>
 						    <footer className="footer">
 						    	<span className="todo-count">
-						    		<strong >2</strong>
-						    		<span></span>
-						    		<span>items</span>
-						    		<span>left</span>
+						    		<strong>{this.state.activeTodos.length}</strong>
+						    		<span> </span>
+						    		<span> items </span>
+						    		<span> left </span>
 						    	</span>
 						        <ul className="filters">
-						            <li><a href="#" id="allTodosHeader" onClick={this.showAllTodos} className="selected">All</a></li><span > </span>
-						            <li><a href="#" id="activeTodosHeader" onClick={this.showActiveTodos} className="">Active</a></li><span> </span>
-						            <li><a href="#" id="completedTodosHeader" onClick={this.showCompletedTodos} className="">Completed</a></li>
+						            <li>
+						            	<a href="#" id="allTodosHeader" onClick={this.showTodos.bind(this,'all','allTodosHeader')} className={'all'=='all'?'selected':''}>
+						            		All
+						            	</a>
+						            </li>
+						            <span> </span>
+						            <li>
+						            	<a href="#" id="activeTodosHeader" onClick={this.showTodos.bind(this,'active','activeTodosHeader')} className={that.state.todosToDisplay === 'active'?'selected':''}>
+						            		Active
+						            	</a>
+						            </li>
+						            <span> </span>
+						            <li>
+						            	<a href="#" id="completedTodosHeader" onClick={this.showTodos.bind(this,'completed','completedTodosHeader')} className={that.state.todosToDisplay === 'completed'?'selected':''}>
+						            		Completed
+						            	</a>
+						            </li>
 						        </ul>
 						    </footer>
 						</div>

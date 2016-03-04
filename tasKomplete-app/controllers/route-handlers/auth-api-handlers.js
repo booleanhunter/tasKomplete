@@ -7,6 +7,25 @@ define(
     function (async, bcrypt, authDbApi) {
     	var debug = require('debug')('todoapp:auth-api-handlers');
 
+        function renderPage(req, responseCallback){
+            var argOne = 'login',
+                argTwo = {};
+            if(req.session.user){
+                argTwo = {
+                    user_name: req.session.user.userName,
+                    display_name: req.session.user.displayName
+                };
+                responseCallback(argOne, argTwo);
+            }                
+            else{
+                argTwo = {       
+                    user_name: null,
+                    display_name: null
+                };
+                responseCallback(argOne, argTwo);
+            } 
+        }
+
         function login(req, responseCallback){
             async.series(
                 [
@@ -108,6 +127,7 @@ define(
     	}
 
     	return {
+            renderPage: renderPage,
             login: login,
             checkForUser: checkForUser,
             registerNewUser: registerNewUser

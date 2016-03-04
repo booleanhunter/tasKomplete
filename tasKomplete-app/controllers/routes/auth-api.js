@@ -75,6 +75,13 @@ define(
                     res.redirect('/');
                 });
             });
+
+            app.get('/',function(req, res){
+                debug('request to /');
+                authApiHandlers.renderPage(req, function(argOne, argTwo){
+                    res.render(argOne, argTwo);
+                });
+            });
         }
         return {
             initialize: initialize

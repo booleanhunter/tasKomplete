@@ -3,9 +3,8 @@ define(
 		'react', 
 		'jquery', 
 		'./header', 
-		'./todo-list1',
-		'./task-popup'
-	],function(React, $, Header, TodoList, TaskPopup){
+		'./todo-list1'
+	],function(React, $, Header, TodoList){
 	var TodoApp = React.createClass({
 		componentDidMount: function(){
 			this.fetchNotifications();	
@@ -26,11 +25,6 @@ define(
 		fetchAllTodos: function(){
 			this.refs.TodoList.fetchAllTodos();
 		},
-		showTaskPopup: function(){
-			React.render(<TaskPopup 
-				fetchAllTodos={this.fetchAllTodos} 
-				fetchAllTodos={this.fetchAllTodos} />, document.getElementById('popup-container'));
-		},	
 		render:function(){
 			return (
 				<div id="todoApp">
