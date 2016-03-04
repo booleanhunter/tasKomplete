@@ -3,7 +3,7 @@ define(
 		'react', 
 		'jquery', 
 		'./header', 
-		'./todo-list',
+		'./todo-list1',
 		'./task-popup'
 	],function(React, $, Header, TodoList, TaskPopup){
 	var TodoApp = React.createClass({
@@ -35,18 +35,9 @@ define(
 			return (
 				<div id="todoApp">
 					<Header userName={this.props.userName}/>
-					<div id="main" className="section group">
-						<div id="task-button" className = "buttonClassOne" onClick={this.showTaskPopup}>
-							Enter a Task
-						</div>	
-	     		     	<br />
-
-	     		     	<TodoList ref="TodoList"/>
-
-	     		     	<div id="bgImg"></div>
-	     		     	<div className="overlay"></div>
-
-					</div>
+	     		    <TodoList ref="TodoList"/>
+					<div id="bgImg"></div>
+	     		    <div className="overlay"></div>
 				</div>
 			)	
 		}

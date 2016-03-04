@@ -1,16 +1,15 @@
 var webpack = require('webpack');
+var path = require('path');
+
 var bower_dir = __dirname + '/bower_components',
     node_dir = __dirname + '/node_modules',
-    lib_dir = __dirname + '/public/js/libs';
+    lib_dir = __dirname + '/public/libs';
 
 var config = {
-	addVendor: function (name, path) {
-    	this.resolve.alias[name] = path;
-    	this.module.noParse.push(new RegExp(path));
-  	},
   	resolve: {
   	    alias: {
-  	        react: node_dir + '/react/dist/react.js',
+  	        react: node_dir + '/react',
+            reactDom: lib_dir + '/react-dom',
   	        jquery: lib_dir + '/jquery-1.11.2.min.js',  
   	        elastic: lib_dir + '/jquery.elastic.source.js',
             avgrund: lib_dir + '/avgrund.js'
@@ -18,13 +17,16 @@ var config = {
   	}, 
     plugins: [
       	new webpack.ProvidePlugin({
-          	jQuery: "jquery",
+          	'$': "jquery",
+            'jQuery': "jquery",
+            'window.jQuery': "jquery",
+            'window.$': 'jquery'
       	}),
-      	new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity),
+      	new webpack.optimize.CommonsChunkPlugin('vendors', 'dist/js/vendors.js', Infinity),
   	],
 
   	entry: {
-  	  	app: ['./public/js/main.js'],
+  	  	app: ['./public/src/js/main.js'],
   	  	vendors: ['react', 'jquery', 'elastic', 'avgrund']
   	},
   	// The resolve.alias object takes require expressions 
@@ -32,20 +34,29 @@ var config = {
   	  // module as values
 
   	output: {
-  	  	path: './public/js',
-  	  	filename: 'bundle.js'
+  	  	path: path.join(__dirname, "public"),
+  	  	filename: 'dist/js/[name].bundle.js'
   	},
 
   	module: {
   	    noParse: [
-  	        new RegExp(node_dir + '/react/dist/react.js'),
-  	        new RegExp(lib_dir +'/jquery-1.11.2.min.js'),
+  	        new RegExp(lib_dir + './react.js'),
+            new RegExp(lib_dir + './react-dom.js'),
+  	        //new RegExp(lib_dir +'/jquery-1.11.2.min.js'),
   	    ],
   	    loaders: [
   	        { 
-  	            test: /\.js$/, 
-  	            loader: 'jsx-loader' 
-  	        }, 
+                test: /\.jsx?$/, 
+                loaders: ['react-hot'],
+                include: path.join(__dirname, 'public')
+
+            },{ 
+               loader: 'babel', //'jsx-loader'
+                query: {
+                    presets: ['react', 'es2015']
+                },
+                include: path.join(__dirname, 'public')
+            } 
   	    ]
   	}
 }

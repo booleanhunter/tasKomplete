@@ -54,21 +54,38 @@ define(['react','jquery'],function(React,$){
 		},
 		render:function(){
 			var that = this;
-			return (
-				<div className="todos" onMouseEnter={that.showDeleteButton} onMouseLeave={that.hideDeleteButton}>
-					<input type="checkbox" className="checkBox" checked={this.props.finishStatus} onChange={this.changeFinishStatus}/>
+			var itemClass = ""
+			if(this.props.finishStatus){
+				itemClass="completed"
+			}
 
-					<form onSubmit={this.saveTodoOnSubmit} className="inputClassOne">
-						<input type="text" onChange={this.updateInputField} value={this.state.content} readOnly onDoubleClick={that.editTodo} onBlur={that.saveTodoOnBlur}/>						
-					</form>
-					<div style={this.state.deleteButtonStyle} onClick={that.deleteTodo}>X</div>
-					<div>
-						{this.props.date}
-					</div>
-				</div>
+			return (
+				<li className={itemClass}>
+				    <div className="view" >
+				    	<input className="toggle" type="checkbox" checked={this.props.finishStatus} onChange={this.changeFinishStatus}/>
+				    	<label>{this.state.content}</label>
+				    	<button className="destroy" onClick={that.deleteTodo}></button>
+				    </div>
+				    <input className="edit" value={this.state.content} readOnly onDoubleClick={that.editTodo} onBlur={that.saveTodoOnBlur}/>
+				</li>
+
 			)			
 		}
 	});
 
 	return SingleTodo;
 });
+
+/*
+<div className="todos" onMouseEnter={that.showDeleteButton} onMouseLeave={that.hideDeleteButton}>
+	<input type="checkbox" className="checkBox" checked={this.props.finishStatus} onChange={this.changeFinishStatus}/>
+
+	<form onSubmit={this.saveTodoOnSubmit} className="inputClassOne">
+		<input type="text" onChange={this.updateInputField} value={this.state.content} readOnly onDoubleClick={that.editTodo} onBlur={that.saveTodoOnBlur}/>						
+	</form>
+	<div style={this.state.deleteButtonStyle} onClick={that.deleteTodo}>X</div>
+	<div>
+		{this.props.date}
+	</div>
+</div>
+*/
