@@ -1,27 +1,19 @@
-/* Copyright Toorq Media Serivces
- * @author Ashwin Hariharan
- * @details Creating a single open instance of cassandraDb and returning it , this single instance is used for all db operations
+/* @author Ashwin Hariharan
+ * @details Creating a single open instance of redis and exposing it, this single instance is used for all db operations
  */
 
-define(
-    [
-        'redis'
-    ], 
-    function(redis) {       
-        var redisClient, that = this;
+ 
+var redis = require('redis');     
+var redisClient, that = this;
 
-        function configure(callback) {
-			that.redisClient = redis.createClient();
-            callback(null, 'connection with redis established');
-        }
+function configure(callback) {
+	that.redisClient = redis.createClient();
+    callback(null, 'connection with redis established');
+}
 
-        function redisClient(){
-            return that.redisClient;
-        }
+function redisClient(){
+    return that.redisClient;
+}
 
-		return {
-			configure: configure,
-            redisClient: redisClient
-		}
-    }
-);
+exports.configure = configure;
+exports.redisClient = redisClient;

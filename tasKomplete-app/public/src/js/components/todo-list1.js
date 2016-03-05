@@ -145,8 +145,8 @@ define(
 
 				for(var i=0; i < selectedElements.length; i++){
 					selectedElements[i].className = selectedElements[i].className.replace(/selected/g,'');
-					console.log(selectedElements[i].className)
 				};
+				console.log(this.state.todosToDisplay)
 				switch(this.state.todosToDisplay){
 					case 'all':
 						document.getElementById('allTodosHeader').className += " selected";;
@@ -160,6 +160,7 @@ define(
 				}	
 			},
 			render:function(){
+				console.log('rendered')
 				var that = this, todos; 
 				switch(this.state.todosToDisplay){
 					case 'all':
@@ -217,19 +218,19 @@ define(
 						    	</span>
 						        <ul className="filters">
 						            <li>
-						            	<a href="#" id="allTodosHeader" onClick={this.showTodos.bind(this,'all','allTodosHeader')} className={'all'=='all'?'selected':''}>
+						            	<a href="#" id="allTodosHeader" onClick={this.showTodos.bind(this,'all','allTodosHeader')} >
 						            		All
 						            	</a>
 						            </li>
 						            <span> </span>
 						            <li>
-						            	<a href="#" id="activeTodosHeader" onClick={this.showTodos.bind(this,'active','activeTodosHeader')} className={that.state.todosToDisplay === 'active'?'selected':''}>
+						            	<a href="#" id="activeTodosHeader" onClick={this.showTodos.bind(this,'active','activeTodosHeader')}>
 						            		Active
 						            	</a>
 						            </li>
 						            <span> </span>
 						            <li>
-						            	<a href="#" id="completedTodosHeader" onClick={this.showTodos.bind(this,'completed','completedTodosHeader')} className={that.state.todosToDisplay === 'completed'?'selected':''}>
+						            	<a href="#" id="completedTodosHeader" onClick={this.showTodos.bind(this,'completed','completedTodosHeader')}>
 						            		Completed
 						            	</a>
 						            </li>

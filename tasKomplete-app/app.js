@@ -1,24 +1,13 @@
-var requirejs = require('requirejs');
-requirejs.config({
-    //Pass the top-level main.js/index.js require
-    //function to requirejs so that node modules
-    //are loaded relative to the top-level JS file.
-    nodeRequire: require
-});
 
-requirejs(
-	[
-		'http',
-		'https',
-		'async',
-		'fs',
-		'express',
-		'configs/server-configs/express-configs',
-		'configs/db-configs/config-mongodb'
-	],
-	function(http, https, async, fs, express, expressConfigs, configMongodb){
+	var http = require('http');
+	var https = require('https');
+	var async = require('async');
+	var fs = require('fs');
+	var express = require('express');
+	var expressConfigs = require('./configs/server-configs/express-configs');
+	var configMongodb = require('./configs/db-configs/config-mongodb');
 		var expressInstance = expressConfigs.configure(),
-			debug = require('debug')('todoapp:app'),
+			debug = require('debug')('taskomplete:app'),
 			serverPort = 9992;
 
 		http.createServer(expressInstance).listen(serverPort, function () {
@@ -34,9 +23,8 @@ requirejs(
 						debug(err);
 					}else{
 						debug(results);
-						requirejs(['controllers/routes'],function(routes){
+						var routes = require('./controllers/routes');
 							routes.initialize(expressInstance); //dB
-						});
 					}					
 				}
 			);
@@ -81,8 +69,8 @@ requirejs(
 		// 		next();
 		// 	});
 		// });  
-	}
-);
+// 	}
+// );
 
 /*  
 snazzy-todo
