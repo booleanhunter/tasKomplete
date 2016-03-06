@@ -3,19 +3,26 @@ define(['react','jquery'],function(React,$){
 		render: function(){
 			if(this.props.userName){
 				return (
-					<div id="header" className="header">
-						<div id="header-left">
-							<h3>tasKomplete</h3>
+					<header className="header-fixed">
+
+						<div className="header-limiter">
+
+							<h1>
+								<a href="#">
+									tasKomplete
+									{/*<span>logo</span>*/}
+								</a>
+							</h1>
+
+							<nav>
+								<a href="#">Welcome, {this.props.userName}</a>
+								<span> </span>
+								<a href="/logout">Logout</a>
+							</nav>
+
 						</div>
-						<div id="header-middle">
-							<h3>Welcome, {this.props.userName}</h3>
-						</div>
-						<div id="header-right">
-							<div id="logout-button">
-								<a href="/logout"> Logout </a>
-							</div>
-						</div>
-					</div>
+
+					</header>
 				)
 			}else{
 				return (

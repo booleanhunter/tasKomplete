@@ -1,9 +1,0 @@
-.todos {
-	color: white
-}
-
-
-ul.tabs-headers  { list-style-type: none; }
-
-.tabs ul li { display: inline; }
-.todos input[type="checkbox"] {width:20px; height:20px;}

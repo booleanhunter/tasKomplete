@@ -3,7 +3,7 @@ define(
 		'react', 
 		'jquery', 
 		'./header', 
-		'./todo-list1'
+		'./todo-list'
 	],function(React, $, Header, TodoList){
 	var TodoApp = React.createClass({
 		componentDidMount: function(){
@@ -28,10 +28,15 @@ define(
 		render:function(){
 			return (
 				<div id="todoApp">
-					<Header userName={this.props.userName}/>
-	     		    <TodoList ref="TodoList"/>
-					<div id="bgImg"></div>
-	     		    <div className="overlay"></div>
+
+					<Header userName={this.props.userName}/>	
+					<div id="contentWrapper">
+
+		     		  <TodoList ref="TodoList"/>  
+		     		  </div>
+						<div id="bgImg"></div>
+		     		    <div className="overlay"></div>
+
 				</div>
 			)	
 		}
