@@ -1,8 +1,8 @@
 .header-fixed {
-	background-color:#292c2f;
-	box-shadow:0 1px 1px #ccc;
-	padding: 20px 40px;
-	height: 80px;
+	background-color: rgba(231,95,93,0.3);
+	box-shadow:0px 1px 5px #ccc;
+	padding: 15px 40px;
+	height: 60px;
 	color: #ffffff;
 	box-sizing: border-box;
 	top:-100px;
