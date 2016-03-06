@@ -16,6 +16,10 @@ tasKomplete is a task management tool which helps you organize your daily tasks.
 
 ![](./tasKomplete-app/screenshots/mobile-login.png)
 
+### The todos page
+
+![](./tasKomplete-app/screenshots/tablet-todos.png)
+
 ### Features:
 
 - Sign-up and login mechanism
