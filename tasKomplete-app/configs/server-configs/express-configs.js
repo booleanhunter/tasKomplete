@@ -1,4 +1,4 @@
-*
+/*
  * @author booleanhunter
  * @about Configures Express and returns it
  */
@@ -68,3 +68,4 @@ exports.configure = configure;
 3. Creates an instance of the express object.
 4. USing Redis store for saving sessions
 5. To remove the x-powered-by from request headers
+*/
