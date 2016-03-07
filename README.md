@@ -1,6 +1,11 @@
 # tasKomplete
 
-tasKomplete is a task management tool which helps you organize your daily tasks. Built using the latest open source technologies, it helps you keep track of which tasks are complete and which are remaining, using a kanban-board user interface.
+tasKomplete is a task management tool which helps you organize your daily tasks. Built using :
+
+- NodeJS and ExpressJS
+- MongoDB
+- ReactJS
+- Webpack
 
 [Click here](http://ec2-52-74-208-196.ap-southeast-1.compute.amazonaws.com:9992) to see it live! 
 
@@ -30,7 +35,7 @@ The master branch is for production-ready code.
 
 Contributed and maintained by :-
 
-* **Ashwin Hariharan (@booleanhunter)**
+[@booleanhunter](http://ashwinhariharan.xyz)
 
 ## Steps to set up dev environment for using this repo
 

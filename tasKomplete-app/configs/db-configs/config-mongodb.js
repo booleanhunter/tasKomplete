@@ -1,5 +1,6 @@
-/* @author Ashwin Hariharan
- * @details Creating a single open instance of mongoDb and returning it, this single instance is used for all db operations
+/**
+ * @author booleanhunter
+ * @about Creating a single open instance of mongoDb and returning it, this single instance is used for all db operations
  */
 
 var mongodb = require('mongodb');
@@ -33,6 +34,7 @@ function mongoClientDB(){
 function mongoObjectId(){
     return that.ObjectID;
 }
+
 exports.configure = configure;
 exports.mongoClientDB = mongoClientDB;
 exports.mongoObjectId = mongoObjectId;

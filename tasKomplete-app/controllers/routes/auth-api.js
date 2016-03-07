@@ -1,12 +1,12 @@
-/* @author Ashwin Iyer
- * @details Configuring the API related to authentication and invoking other authentication modules
+/**
+ * @author booleanhunter
+ * @about Configuring the API related to authentication and invoking other authentication modules
  */
 
 var authApiHandlers = require('../route-handlers/auth-api-handlers');
 var todosApiHandlers = require('../route-handlers/todos-api-handlers');
 
 function initialize(expressInstance) {
-    //passport configurations
     var app = expressInstance,
         debug = require('debug')('taskomplete:auth-api');
 
@@ -30,9 +30,6 @@ function initialize(expressInstance) {
                         displayName: responseData.displayName,
                         status: responseData.status
                     };
-                    
-                    // if(req.body.gcmId)
-                    //     authApiHandlers.addAndroidRegId(req,res);
                     
                     res.json({
                         status: 'authenticated'
@@ -66,8 +63,6 @@ function initialize(expressInstance) {
 
     app.get('/logout', function(req, res) {
         debug('request to /logout');
-        //req.logOut();
-        /*Check out the revision 2 made in this above link*/
         req.session.destroy(function(){
             res.redirect('/');
         });

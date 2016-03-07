@@ -1,11 +1,11 @@
-/* @author Ashwin Iyer
- * @details Configuring the API related to authentication and invoking other authentication modules
+/**
+ * @author booleanhunter
+ * @about Configuring the API related to retrieving, storing and deleting todos
  */
 
 var todosApiHandlers = require('../route-handlers/todos-api-handlers');
 
 function initialize(expressInstance) {
-    //passport configurations
     var app = expressInstance,
         debug = require('debug')('taskomplete:todos-api');
 
@@ -94,7 +94,7 @@ function initialize(expressInstance) {
     });
 
     app.get('/mytodos',function(req, res){
-        debug('request to /');
+        debug('request to /mytodos');
         todosApiHandlers.renderPage(req, function(argOne, argTwo){
             res.render(argOne, argTwo);
         });

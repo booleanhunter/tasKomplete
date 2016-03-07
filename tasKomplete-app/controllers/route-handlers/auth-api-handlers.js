@@ -1,3 +1,7 @@
+/**
+ * @author booleanhunter
+ * @about Route handling for auth-api
+ */
 
 var async = require('async');
 var bcrypt = require('bcrypt');
@@ -122,6 +126,7 @@ function registerNewUser(req, responseCallback){
         });
     });
 }
+
 exports.renderPage = renderPage;
 exports.login = login;
 exports.checkForUser = checkForUser;

@@ -1,3 +1,7 @@
+/**
+ * @author booleanhunter
+ * @about Database operations for authentication module
+ */
 
 var configMongoDb = require('../configs/db-configs/config-mongodb');
 

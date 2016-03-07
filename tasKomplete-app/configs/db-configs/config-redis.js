@@ -1,7 +1,7 @@
-/* @author Ashwin Hariharan
- * @details Creating a single open instance of redis and exposing it, this single instance is used for all db operations
+/**
+ * @author booleanhunter
+ * @about Creating a single open instance of redis and returning it, this single instance is used for all db operations
  */
-
  
 var redis = require('redis');     
 var redisClient, that = this;

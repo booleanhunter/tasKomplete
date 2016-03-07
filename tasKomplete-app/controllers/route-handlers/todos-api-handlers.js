@@ -1,5 +1,6 @@
-/*  @author Ashwin Iyer
- * @details These are the API handlers for todo related stuff
+/**
+ * @author booleanhunter
+ * @about Route handling for todos-api
  */
 
 var async = require('async');
