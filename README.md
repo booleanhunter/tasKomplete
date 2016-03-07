@@ -4,7 +4,7 @@ tasKomplete is a task management tool which helps you organize your daily tasks.
 
 [Click here](http://ec2-52-74-208-196.ap-southeast-1.compute.amazonaws.com:9992) to see it live! 
 
-#### Styles for the task-list is taken from [http://todomvc.com](http://todomvc.com/examples/react/#/active)
+#### 
 
 ### The Login Page
 
@@ -66,3 +66,8 @@ change this to
 ```
 
 For a detailed explanation on setting up a workflow using Webpack, check out my blog post - [Webpack for The Fast and The Furious](https://medium.com/@booleanhunter/webpack-for-the-fast-and-the-furious-bf8d3746adbd#.uzx2l0hy4) :-)
+
+#### Acknowledgements
+
+- Styles for the task-list is taken from [http://todomvc.com](http://todomvc.com/examples/react/#/active)
+- Special thanks to [@hkoivuneva](https://github.com/hkoivuneva) for helping me with the responsiveness.
