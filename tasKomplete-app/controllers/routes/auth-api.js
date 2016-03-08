@@ -26,7 +26,7 @@ function initialize(expressInstance) {
             }else{
                 req.session.regenerate(function(){
                     req.session.user = {
-                        userName: responseData.userName,
+                        username: responseData.username,
                         displayName: responseData.displayName,
                         status: responseData.status
                     };
@@ -43,11 +43,11 @@ function initialize(expressInstance) {
         debug('request to /login');
         authApiHandlers.login(req, function(responseData){
             debug(responseData);
-            if(responseData.userName){
+            if(responseData.username){
 
                 req.session.regenerate(function(){
                     req.session.user = {
-                        userName: responseData.userName,
+                        username: responseData.username,
                         displayName: responseData.displayName,
                         status: 'loggedIn'
                     };

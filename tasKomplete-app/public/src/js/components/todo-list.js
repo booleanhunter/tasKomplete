@@ -1,10 +1,15 @@
+/**
+ * @author booleanhunter
+ * @about Logic for Rendering the todo list, and AJAX requests for fetching, saving, retrieving, completing, editing and deleting todos
+ */
+
 define(
 	[
 		'react',
-		'jquery',
-		'./single-todo'
+		'./todo-item',
+		'../common-functions'
 	],
-	function(React,$,SingleTodo){ 
+	function(React, TodoItem, commonFunctions){ 
 		var TodoList = React.createClass({
 			getInitialState:function(){
 				return {
@@ -24,116 +29,76 @@ define(
 					var postData = {
 						todoContent : inputTodo.value
 					};
-					$.ajax({
-					    type:'POST',
-					    url:'/todos',
-					    datatype:'json',
-					    data:postData,
-					    success: function(data){
-					    	inputTodo.value = '';
-					    	that.fetchAllTodos();          
-					    },
-					    error: function(httpRequest,status,error){
-					    	console.log(error)
-					    }
-					});
+
+					var successCallback = function(data){
+						inputTodo.value = '';
+						that.fetchAllTodos();
+					};
+
+					commonFunctions.sendHTTPPostRequest('/todos', postData, successCallback);
 				}			
 				e.preventDefault();
 			},
 			fetchAllTodos:function(){
-				$.ajax({
-				    type:'GET',
-				    url:'/todos',
-				    datatype:'json',
-				    success: function(data){
-				    	var allTodos = [], activeTodos = [], completedTodos = [], archivedTodos = [];
-				    	for (var i=0; i < data.allTodos.length; i++){
-			    			allTodos.push(data.allTodos[i]);
-			    			if(data.allTodos[i].finishStatus === false) {
-			    			    activeTodos.push(data.allTodos[i]);
-			    			}else if(data.allTodos[i].finishStatus === true){
-			    				completedTodos.push(data.allTodos[i]);
-			    			}			    	    
-				    	}
-				    	this.setState({allTodos:allTodos,activeTodos:activeTodos,completedTodos:completedTodos});            
-				    }.bind(this),
-				    error: function(httpRequest,status,error){
-				    	console.log(error)
-				    }
-				});
+				var successCallback = function(data){
+			    	var allTodos = [], activeTodos = [], completedTodos = [], archivedTodos = [];
+			    	for (var i=0; i < data.allTodos.length; i++){
+		    			allTodos.push(data.allTodos[i]);
+		    			if(data.allTodos[i].finishStatus === false) {
+		    			    activeTodos.push(data.allTodos[i]);
+		    			}else if(data.allTodos[i].finishStatus === true){
+		    				completedTodos.push(data.allTodos[i]);
+		    			}			    	    
+			    	}
+			    	this.setState({allTodos:allTodos,activeTodos:activeTodos,completedTodos:completedTodos});
+				}.bind(this);
+
+				commonFunctions.sendHTTPGetRequest('/todos', successCallback);
 			},	
 			saveTodo:function(todoId,todoContent){
 				var postData = {
 					todoId: todoId,
 					todoContent: todoContent
-				},
-				that = this;
-				$.ajax({
-				    type:'POST',
-				    url:'/todo/update',
-				    datatype:'json',
-				    data:postData,
-				    success: function(data){
-				    	that.fetchAllTodos();           
-				    },
-				    error: function(httpRequest,status,error){
-				    	console.log(error)
-				    }
-				});
+				};
+
+				var successCallback = function(data){
+					this.fetchAllTodos();
+				}.bind(this);
+
+				commonFunctions.sendHTTPPostRequest('/todo/update', postData, successCallback);
 			},
 			deleteTodo:function(todoId){
 				var postData = {
 					todoId: todoId
-				},
-				that = this;
-				$.ajax({
-				    type:'POST',
-				    url:'/todo/delete',
-				    datatype:'json',
-				    data:postData,
-				    success: function(data){
-				    	that.fetchAllTodos();           
-				    },
-				    error: function(httpRequest,status,error){
-				    	console.log(error)
-				    }
-				});
+				};
+
+				var successCallback = function(data){
+					this.fetchAllTodos();
+				}.bind(this);
+
+				commonFunctions.sendHTTPPostRequest('/todo/delete', postData, successCallback);
 			},
 			markAsFinished: function(todoId){
 				var postData = {
 					todoId: todoId
-				},
-				that = this;
-				$.ajax({
-				    type:'POST',
-				    url:'/todo/mark_complete',
-				    datatype:'json',
-				    data:postData,
-				    success: function(data){
-				    	that.fetchAllTodos();           
-				    },
-				    error: function(httpRequest,status,error){
-				    	console.log(error)
-				    }
-				});
+				};
+
+				var successCallback = function(data){
+					this.fetchAllTodos();
+				}.bind(this);
+
+				commonFunctions.sendHTTPPostRequest('/todo/mark_complete', postData, successCallback);
 			},
 			markAsActive: function(todoId){
 				var postData = {
 					todoId: todoId
-				},
-				that = this;
-				$.ajax({
-				    type:'POST',
-				    url:'/todo/mark_incomplete',
-				    datatype:'json',
-				    data:postData,
-				    success: function(data){
-				    	that.fetchAllTodos();           
-				    },
-				    error: function(httpRequest,status,error){
-				    	console.log(error)
-				    }
-				});
+				};
+
+				var successCallback = function(data){
+					this.fetchAllTodos();
+				}.bind(this);
+
+				commonFunctions.sendHTTPPostRequest('/todo/mark_incomplete', postData, successCallback);
 			},
 			showTodos:function(todosToDisplay,elementId){
 				this.setState({
@@ -176,7 +141,7 @@ define(
 
 				var todoComponents = todos.map(function(todo){
 					return (
-						<SingleTodo 
+						<TodoItem 
 							key={"all"+todo._id} 
 							todoId={todo._id}
 							content={todo.content} 
@@ -241,6 +206,7 @@ define(
 				)
 			}
 		});
+
 		return TodoList;
 	}
 )

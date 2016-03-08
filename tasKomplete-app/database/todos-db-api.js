@@ -18,7 +18,7 @@ exports.registerNewUser = function(req,callback){
 
 exports.checkForUser = function(reqObj, callback){
 	mongoDBClient.collection("userData").findOne({
-		username:username
+		username: username
 	}, function(err, results){
 		if(err){
 			resultData = {
@@ -29,11 +29,11 @@ exports.checkForUser = function(reqObj, callback){
 		}else{
 			if(results.length > 0){
 				resultData = {
-					userName: results
+					username: results
 				};
 			}else{
 				resultData = {
-					userName: []
+					username: []
 				};
 			}
 			callback(null, resultData);
@@ -43,7 +43,7 @@ exports.checkForUser = function(reqObj, callback){
 
 exports.fetchAllTodos = function(reqObj, callback){
 	mongoDBClient.collection("todoData").find({
-		username: reqObj.userName
+		username: reqObj.username
 	}).sort({date:-1}).toArray(function(err, results){
 		var resultData = {};
 		if(err){
@@ -69,7 +69,7 @@ exports.fetchAllTodos = function(reqObj, callback){
 
 exports.fetchNotifications = function(reqObj, callback){
 	mongoDBClient.collection("notifications").find({
-		assignTo: reqObj.userName
+		assignTo: reqObj.username
 	}).sort({date:-1}).toArray(function(err, results){
 		var resultData = {};
 		if(err){
@@ -95,7 +95,7 @@ exports.fetchNotifications = function(reqObj, callback){
 
 exports.createNewTodo = function(reqObj, callback){
 	mongoDBClient.collection("todoData").insert({
-		username: reqObj.userName,
+		username: reqObj.username,
 		content: reqObj.todoContent,
 		finishStatus: false,
 		date: new Date()

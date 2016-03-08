@@ -1,16 +1,16 @@
+/**
+ * @author booleanhunter
+ * @about Entry point for the todos screen after login
+ */
+
 define(['react'],function(React){
-	
-	console.log('Loaded the Home Page');
-	var userName = document.getElementById('usernameHeader').getAttribute('data-user-name');
-	if(userName){
+	var username = document.getElementById('usernameHeader').getAttribute('data-user-name');
+
+	if(username){
 		define(['./components/todo-app'],function(TodoApp){
-			React.render(<TodoApp userName={userName} />, document.getElementById('componentContainer'));
+			React.render(<TodoApp username={username} />, document.getElementById('componentContainer'));
 		});		
 	}else{
 		window.location.replace('/');		
 	}
-	//console.log($('#userName'));
 });
-
-//webpack --progress --colors --watch (for development)
-//webpack -p (for production)

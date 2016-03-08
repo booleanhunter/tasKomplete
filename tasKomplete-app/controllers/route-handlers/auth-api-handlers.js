@@ -13,7 +13,7 @@ function renderPage(req, responseCallback){
         argTwo = {};
     if(req.session.user){
         argTwo = {
-            user_name: req.session.user.userName,
+            user_name: req.session.user.username,
             display_name: req.session.user.displayName
         };
         responseCallback(argOne, argTwo);
@@ -39,7 +39,7 @@ function login(req, responseCallback){
                 debug(err);
             }else{
                 var resultData = {};
-                if(results[0].userName){
+                if(results[0].username){
                     bcrypt.compare(req.body.password, results[0].password, function(err, res) {
                         if (err){
                             debug(err);
@@ -47,13 +47,13 @@ function login(req, responseCallback){
                             if(res){
                                 debug('success')
                                 resultData = {
-                                    userName: results[0].userName,
+                                    username: results[0].username,
                                     displayName: results[0].displayName
                                 }
                             }else{
                                 debug('failure');
                                 resultData = {
-                                    userName: null,
+                                    username: null,
                                     displayName: null
                                 }
                             }
@@ -63,7 +63,7 @@ function login(req, responseCallback){
                     });
                 }else{
                     resultData = {
-                        userName: null,
+                        username: null,
                         displayName: null
                     }
                     responseCallback(resultData);
@@ -86,7 +86,7 @@ function checkForUser(req, responseCallback){
             }else{
                 var resultData = {};
                 if(results.length > 0){
-                    if(results[0].userName){
+                    if(results[0].username){
                         resultData = {
                             status: 'unavailable'
                         }

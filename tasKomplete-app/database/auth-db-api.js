@@ -10,7 +10,7 @@ var mongoDBClient = configMongoDb.mongoClientDB();
 
 exports.registerNewUser = function(reqObj, callback){
 	mongoDBClient.collection("userData").insert({
-		username: reqObj.userName,
+		username: reqObj.username,
 		password: reqObj.password
 	},function(err, results){
 		var resultData = {};
@@ -22,7 +22,7 @@ exports.registerNewUser = function(reqObj, callback){
 			callback(resultData);
 		}else{
 			resultData = {
-				userName: reqObj.userName,
+				username: reqObj.username,
 				displayName: reqObj.displayName,
 				status: 'loggedIn'
 			}
@@ -33,7 +33,7 @@ exports.registerNewUser = function(reqObj, callback){
 
 exports.checkForUser = function(reqObj, callback){
 	mongoDBClient.collection("userData").findOne({
-		username: reqObj.userName
+		username: reqObj.username
 	}, function(err, results){
 		var resultData = {};
 		if(err){
@@ -45,13 +45,13 @@ exports.checkForUser = function(reqObj, callback){
 		}else{
 			if(results){
 				resultData = {
-					userName: results.username,
+					username: results.username,
 					displayName: null,
 					password: results.password
 				};
 			}else{
 				resultData = {
-					userName: null,
+					username: null,
 					displayName: null,
 					password: null
 				};

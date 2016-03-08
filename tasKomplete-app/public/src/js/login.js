@@ -1,17 +1,16 @@
+/**
+ * @author booleanhunter
+ * @about Entry point for login screen
+ */
+
 define(['react'],function(React){
+	var username = document.getElementById('usernameHeader').getAttribute('data-user-name');
 	
-	console.log('Loaded the Home Page');
-	var userName = document.getElementById('usernameHeader').getAttribute('data-user-name');
-	
-	if(!userName){
+	if(!username){
 		define(['./components/home-page'],function(HomePage){
 			React.render(<HomePage />, document.getElementById('componentContainer'));
 		});		
 	}else{
 		window.location.replace('/mytodos');	
 	}
-	//console.log($('#userName'));
 });
-
-//webpack --progress --colors --watch (for development)
-//webpack -p (for production)

@@ -12,7 +12,7 @@ function renderPage(req, responseCallback){
         argTwo = {};
     if(req.session.user){
         argTwo = {
-            user_name: req.session.user.userName,
+            user_name: req.session.user.username,
             display_name: req.session.user.displayName
         };
         responseCallback(argOne, argTwo);
@@ -36,7 +36,7 @@ function fetchNotifications(req, responseCallback){
 
 function createNewTodo(req, responseCallback){
     var reqObj = req.body;
-    reqObj.userName = req.session.user.userName;
+    reqObj.username = req.session.user.username;
     todosDbApi.createNewTodo(reqObj, responseCallback);
 }
 
@@ -59,7 +59,7 @@ function markAsActive(req, responseCallback){
 function assignTodo(req, responseCallback){
     if(req.session.user){
         var reqObj = req.body;
-        reqObj.userName = req.session.user.userName;
+        reqObj.username = req.session.user.username;
         
         async.auto(
             {

@@ -1,7 +1,12 @@
-define(['react','jquery'],function(React,$){
+/**
+ * @author booleanhunter
+ * @about Logic for the header component
+ */
+
+define(['react'],function(React){
 	var Header = React.createClass({
 		render: function(){
-			if(this.props.userName){
+			if(this.props.username){
 				return (
 					<header className="header-fixed">
 
@@ -15,7 +20,7 @@ define(['react','jquery'],function(React,$){
 							</h1>
 
 							<nav>
-								<a href="#">Welcome, {this.props.userName}</a>
+								<a href="#">Welcome, {this.props.username}</a>
 								<span> </span>
 								<a href="/logout">Logout</a>
 							</nav>

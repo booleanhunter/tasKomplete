@@ -1,5 +1,10 @@
-define(['react','jquery'],function(React,$){
-	var SingleTodo = React.createClass({
+/**
+ * @author booleanhunter
+ * @about A single todo item component, which calls functions from the parent component through props
+ */
+
+define(['react'],function(React){
+	var TodoItem = React.createClass({
 		getInitialState:function(){
 			return {
 				content:this.props.content,
@@ -86,7 +91,7 @@ define(['react','jquery'],function(React,$){
 		}
 	});
 
-	return SingleTodo;
+	return TodoItem;
 });
 
 /*
