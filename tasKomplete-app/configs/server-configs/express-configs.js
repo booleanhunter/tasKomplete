@@ -26,8 +26,7 @@ function configure(){
     expressInstance.set('view engine', 'html');           
     expressInstance.engine('html', consolidate.underscore); 
 
-	expressInstance.use(bodyParser({limit: '50mb'}));
-    expressInstance.use(bodyParser.json());
+	expressInstance.use(bodyParser.json());
     expressInstance.use(cookieParser());
     /*
     If you're using urlencoded with { extended:false }, req.body will return the unparsed raw string from the form categoryName=test.
@@ -47,7 +46,9 @@ function configure(){
             db: 2,
             ttl: 60 * 60 * 24 * 365
         }),
-        secret: 'booleanhunter'
+        secret: 'booleanhunter',
+        resave: true,
+        saveUninitialized: true
     }));
 
     expressInstance.disable('x-powered-by'); //5  
