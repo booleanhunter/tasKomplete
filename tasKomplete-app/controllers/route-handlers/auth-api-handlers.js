@@ -111,6 +111,7 @@ function checkForUser(req, responseCallback){
 function registerNewUser(req, responseCallback){
     var SALT_WORK_FACTOR = 10,
         reqObj = req.body;
+        reqObj.signupDate = new Date();
 
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
         if (err){

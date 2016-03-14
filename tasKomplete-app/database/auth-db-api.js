@@ -11,7 +11,8 @@ var mongoDBClient = configMongoDb.mongoClientDB();
 exports.registerNewUser = function(reqObj, callback){
 	mongoDBClient.collection("userData").insert({
 		username: reqObj.username,
-		password: reqObj.password
+		password: reqObj.password,
+		signupDate: reqObj.signupDate
 	},function(err, results){
 		var resultData = {};
 		if(err){
