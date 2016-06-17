@@ -1,4 +1,6 @@
-# tasKomplete
+# tasKomplete  :heavy_check_mark:
+
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/booleanhunter/tasKomplete/blob/master/LICENSE)
 
 tasKomplete is a task management tool which helps you organize your daily tasks. Built using :
 
@@ -15,15 +17,15 @@ tasKomplete is a task management tool which helps you organize your daily tasks.
 
 - On laptop
 
-![](./tasKomplete-app/screenshots/laptop-login.png)
+![](./screenshots/laptop-login.png)
 
 - On mobile
 
-![](./tasKomplete-app/screenshots/mobile-login.png)
+![](./screenshots/mobile-login.png)
 
 ### The todos page
 
-![](./tasKomplete-app/screenshots/tablet-todos.png)
+![](./screenshots/tablet-todos.png)
 
 ### Features:
 
