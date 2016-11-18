@@ -9,7 +9,7 @@ tasKomplete is a task management tool which helps you organize your daily tasks.
 - ReactJS
 - Webpack
 
-[Click here](http://ec2-52-74-208-196.ap-southeast-1.compute.amazonaws.com:9992) to see it live! 
+[Click here](http://taskomplete.booleanhunter.com) to see it live! 
 
 #### 
 
@@ -53,7 +53,7 @@ Contributed and maintained by :-
 - Use [React Developer Tools Chrome Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) to understand the components hierarchy and structure and to track down bugs.
 
 
-#### For development
+#### For experimenting with code
 
 - React Hot Loader can be used to ease your development workflow. This can be done by installing dev dependencies from `package.json` file. If you haven't, then
 run `npm install webpack-dev-server` and `npm install react-hot-loader`.
