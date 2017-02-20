@@ -3,7 +3,7 @@
  * @about A single todo item component, which calls functions from the parent component through props
  */
 
-define(['react'],function(React){
+define(['react', 'react-dom'],function(React, ReactDOM){
 	var TodoItem = React.createClass({
 		getInitialState:function(){
 			return {
@@ -23,7 +23,7 @@ define(['react'],function(React){
 			this.setState({content:nextProps.content});
 		},
 		componentDidUpdate: function(){
-			var node = React.findDOMNode(this.refs.editInput);
+			var node = ReactDOM.findDOMNode(this.refs.editInput);
 			node.focus();
 			node.setSelectionRange(node.value.length, node.value.length);
 		},	

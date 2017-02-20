@@ -12,8 +12,8 @@ var config = {
     resolve: {
         alias: {
             react: node_dir + '/react',
-            reactDom: lib_dir + '/react-dom',
-            jquery: lib_dir + '/jquery-1.11.2.min.js',
+            "react-dom": node_dir + '/react-dom',
+            jquery: node_dir + '/jquery/dist/jquery.min.js',
             elastic: lib_dir + '/jquery.elastic.source.js',
             avgrund: lib_dir + '/avgrund.js'
         }
@@ -25,17 +25,16 @@ var config = {
             'window.jQuery': "jquery",
             'window.$': 'jquery'
         }),
-        new webpack.optimize.CommonsChunkPlugin('vendors', 'dist/js/vendors.js', Infinity),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendors',
+            filename: 'dist/js/vendors.js',
+            minChunks: 2,
+        }),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            minimize: true
-        }),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.OccurenceOrderPlugin()
     ],
 
     entry: {
@@ -56,13 +55,13 @@ var config = {
             new RegExp(lib_dir + './react-dom.js'),
             //new RegExp(lib_dir +'/jquery-1.11.2.min.js'),
         ],
-        loaders: [{
+        rules: [{
             test: /\.jsx?$/,
-            loaders: ['react-hot'],
+            loaders: ['react-hot-loader'],
             include: path.join(__dirname, 'public')
 
         }, {
-            loader: 'babel', //'jsx-loader'
+            loader: 'babel-loader',
             query: {
                 presets: ['react', 'es2015']
             },

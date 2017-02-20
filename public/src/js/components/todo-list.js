@@ -111,7 +111,6 @@ define(
 				for(var i=0; i < selectedElements.length; i++){
 					selectedElements[i].className = selectedElements[i].className.replace(/selected/g,'');
 				};
-				console.log(this.state.todosToDisplay)
 				switch(this.state.todosToDisplay){
 					case 'all':
 						document.getElementById('allTodosHeader').className += " selected";;
@@ -125,7 +124,6 @@ define(
 				}	
 			},
 			render:function(){
-				console.log('rendered')
 				var that = this, todos; 
 				switch(this.state.todosToDisplay){
 					case 'all':
