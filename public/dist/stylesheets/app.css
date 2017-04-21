@@ -76,7 +76,8 @@ h1,h2,h3,h4,h5 {
 /*Apply class inputClassOne to apply this  style for input boxes*/
 .inputClassOne input[type="text"], input[type="password"]{
 	padding: 10px;
-	margin: 0.5em 0;
+	margin: 0.5em auto auto 0.4em;
+	position: relative;
 	border: solid 1px #dcdcdc;
 	transition: box-shadow 0.3s, border 0.3s;
 	border-radius: 4px;
