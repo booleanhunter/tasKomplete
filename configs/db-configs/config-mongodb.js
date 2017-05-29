@@ -9,7 +9,13 @@ var MongoClient, mongoClientInstance, ObjectID, that = this;
 function configure(callback) {
     that.MongoClient = mongodb.MongoClient,
         Server = mongodb.Server;
+
     var server = 'mongodb://localhost:27017/todoAppDB';
+
+    if(process.argv.indexOf("-mongoip") != -1){ //does our flag exist?
+        server = 'mongodb://' + process.argv[process.argv.indexOf("-mongoip") + 1] + ':27017/todoAppDB'; //grab the next item
+    }
+
 
     that.MongoClient.connect(server, function(err, db){
         if(err){

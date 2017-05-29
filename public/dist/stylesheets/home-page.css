@@ -12,13 +12,14 @@
 
 #signupHeader, #loginHeader, #loginErrMsg, #signupNameMsg, #signupPwMsg {
 	color: white;
+	margin-bottom: 10px;
 }
 
 #signupSection, #loginSection {
 	border: 2px solid;
 	border-radius: 6px;
 	/*margin-left: 5%;*/
-	padding: 1.5% 3%;
+	padding: 40px;
 	min-height: 5em;
 	width: auto;
 }

@@ -39,9 +39,15 @@ function configure(){
         extended: true,
     }));
 
+    var redisip = 'localhost';
+
+    if(process.argv.indexOf("-redisip") != -1){ //does our flag exist?
+        redisip = process.argv[process.argv.indexOf("-redisip") + 1]; //grab the next item
+    }
+    
     expressInstance.use(expressSession({ //4
         store: new RedisStore({
-            host: 'localhost',
+            host: redisip,
             port: 6379,
             db: 2,
             ttl: 60 * 60 * 24 * 365

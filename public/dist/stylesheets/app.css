@@ -4,7 +4,7 @@ body {
 }
 h1,h2,h3,h4,h5 {
 	font-weight: lighter;
-	margin:0;
+	margin: 0;
 	text-align: center;
 }
 
@@ -48,14 +48,15 @@ h1,h2,h3,h4,h5 {
 
 /*Apply class inputClassOne to apply this style for div buttons*/
 .buttonClassOne {
+	margin-top: 10px;
 	margin-left:40px;
 	text-align: center;
 	color: rgb(231,95,93);
 	background-color: rgba(255,255,255,0.2);
   	width: 100px;
-	height: 25px;
+	height: 30px;
 	border-radius: 4px;
-	padding-top:5px;
+	padding-top: 10px;
 	border-style: solid;
 	border-width: 1px;
 	border-color: rgba(0,54,76,0.5);
@@ -76,7 +77,7 @@ h1,h2,h3,h4,h5 {
 /*Apply class inputClassOne to apply this  style for input boxes*/
 .inputClassOne input[type="text"], input[type="password"]{
 	padding: 10px;
-	margin: 0.5em auto auto 0.4em;
+	margin: 0.5em auto 0.7em;
 	position: relative;
 	border: solid 1px #dcdcdc;
 	transition: box-shadow 0.3s, border 0.3s;
