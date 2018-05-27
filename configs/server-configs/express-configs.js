@@ -39,7 +39,7 @@ function configure(){
         extended: true,
     }));
 
-    var redisip = 'localhost';
+    var redisip = 'redis';
 
     if(process.argv.indexOf("-redisip") != -1){ //does our flag exist?
         redisip = process.argv[process.argv.indexOf("-redisip") + 1]; //grab the next item

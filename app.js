@@ -18,7 +18,6 @@ var expressInstance = expressConfigs.configure(),
 
 http.createServer(expressInstance).listen(serverPort, function () {  //4
     debug('Taskomplete Server running on ' + serverPort);
-    console.log("hey");
     
 	async.parallel(
 		[

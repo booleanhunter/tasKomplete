@@ -1,0 +1,26 @@
+version: "2"
+services:
+  taskomplete:
+    container_name: taskomplete
+    image: booleanhunter/taskomplete
+    restart: always
+    build: .
+    ports:
+      - "4321:4321"
+    depends_on:
+      - mongo
+      - redis
+  mongo:
+    container_name: mongo
+    restart: always
+    image: mongo
+    volumes:
+      - ./data/mongodb:/data/db
+    ports:
+      - "27017:27017"
+
+  redis:
+    container_name: redis
+    image: redis
+    volumes:
+      - ./data/redis:/data/db
