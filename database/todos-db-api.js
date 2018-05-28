@@ -3,7 +3,7 @@
  * @about Database operations for todos-api
  */
 
-var configMongoDb = require('../configs/db-configs/config-mongodb');
+var configMongoDb = require('../configs/db-configs/config-mongodb-promise');
 
 var mongoDBClient = configMongoDb.mongoClientDB(),
 	ObjectID = configMongoDb.mongoObjectId(),

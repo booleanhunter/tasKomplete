@@ -3,7 +3,7 @@
  * @about Database operations for authentication module
  */
 
-var configMongoDb = require('../configs/db-configs/config-mongodb');
+var configMongoDb = require('../configs/db-configs/config-mongodb-promise');
 
 var mongoDBClient = configMongoDb.mongoClientDB();
 	debug = require('debug')('taskomplete:auth-db-api');
