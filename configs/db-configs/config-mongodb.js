@@ -12,38 +12,14 @@ function configure(callback) {
 
     var server = 'mongodb://mongo:27017/todoAppDB';
 
-    // if(process.argv.indexOf("-mongoip") != -1){ //does our flag exist?
-    //     server = 'mongodb://' + process.argv[process.argv.indexOf("-mongoip") + 1] + ':27017/todoAppDB'; //grab the next item
-    // }
+    if(process.argv.indexOf("-mongoip") != -1){ //does our flag exist?
+        server = 'mongodb://' + process.argv[process.argv.indexOf("-mongoip") + 1] + ':27017/todoAppDB'; //grab the next item
+    }
 
-
-    that.MongoClient.connect(server, {
-        autoReconnect: true,
-        reconnectTries: 100
-        // db: {
-        //     native_parser: false,
-        //     retryMiliSeconds: 100000,
-        //     numberOfRetries: 100
-        // },
-        // server: {
-        //     socketOptions: {
-        //         connectTimeoutMS: 500
-        //     }
-        // }
-    }, function(err, db){
-        if(err){
-            var error = {
-                message: 'MongoDB connect failed',
-                error: err
-            }
-            callback(error);
-        }else{
-            that.mongoClientInstance = db;
-            that.ObjectID = mongodb.ObjectID;
-            callback(null, 'Connection with mongodb established');
-        }
-        
-    });        
+    that.MongoClient.on('serverOpening', function(event){
+        console.log('connected') 
+        console.log(event)
+    });       
 }
 
 function mongoClientDB(){

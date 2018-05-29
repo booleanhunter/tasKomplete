@@ -10,7 +10,7 @@ var http = require('http');  //1
 var async = require('async'); //2
 var express = require('express'); //3
 var expressConfigs = require('./configs/server-configs/express-configs');
-var configMongodb = require('./configs/db-configs/config-mongodb-promise');
+//var configMongodb = require('./configs/db-configs/config-mongodb');
 
 var expressInstance = expressConfigs.configure(),
 	debug = require('debug')('taskomplete:app'),
@@ -18,32 +18,24 @@ var expressInstance = expressConfigs.configure(),
 
 http.createServer(expressInstance).listen(serverPort, function () {  //4
     debug('Taskomplete Server running on ' + serverPort);
-    
-	async.parallel(
-		[
-			function(callback){
-				var promise = configMongodb.configure();
-				promise.then(function(result){
-					callback(null, 'Connection with mongodb established');
-				}, function(err){
-					var error = {
-					    message: 'MongoDB connect failed',
-					    error: err
-					}
-					callback(error);
-				})
-
-			}
-		], function(err, results){
-			if(err){
-				debug(err);
-			}else{
-				debug(results);
-				var routes = require('./controllers/routes');
-				routes.initialize(expressInstance);
-			}					
-		}
-	);
+    var routes = require('./controllers/routes');
+	routes.initialize(expressInstance);
+	// async.parallel(
+	// 	[
+	// 		function(callback){
+	// 			configMongodb.configure();
+	// 			callback(null, 'Initializing routes')
+	// 		}
+	// 	], function(err, results){
+	// 		if(err){
+	// 			debug(err);
+	// 		}else{
+	// 			debug(results);
+	// 			var routes = require('./controllers/routes');
+	// 			routes.initialize(expressInstance);
+	// 		}					
+	// 	}
+	// );
 });
 
 // https.createServer(credentials, expressInstance).listen(config.development.server_port1, function () {
